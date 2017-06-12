@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * Created by auto on 15/05/17.
+ * Created by manuel on 15/05/17.
  */
 public class LoginPage extends PageBase {
 

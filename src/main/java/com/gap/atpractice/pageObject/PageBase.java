@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Created by auto on 25/05/17.
+ * Created by manuel on 25/05/17.
  */
 public abstract class PageBase extends LoadableComponent {
 

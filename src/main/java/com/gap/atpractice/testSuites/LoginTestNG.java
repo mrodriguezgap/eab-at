@@ -3,14 +3,13 @@ package com.gap.atpractice.testSuites;
 
 import com.gap.atpractice.dataProvider.DataProviderTest;
 import com.gap.atpractice.pageObject.HomePage;
-import com.gap.atpractice.pageObject.LoginPage;
-import com.gap.atpractice.testSuites.commons.commonTest;
+import com.gap.atpractice.testSuites.commons.CommonTest;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
- * Created by auto on 22/05/17.
+ * Created by manuel on 22/05/17.
  */
 public class LoginTestNG extends TestSuiteBase {
 
@@ -29,8 +28,8 @@ public class LoginTestNG extends TestSuiteBase {
     @Test(groups = "test_001")
     @Parameters({"userName", "userPassword"})
     private void testLoginPO(String userName, String password) throws Exception {
-        //commonTest.loadLoginPage();
-        HomePage homePage = commonTest.login(userName, password);
+        //CommonTest.loadLoginPage();
+        HomePage homePage = CommonTest.login(userName, password);
         Assert.assertEquals(homePage.checkHomePage(), true, "Home Page not loaded");
         System.out.println(homePage.getPageTitle());
     }
@@ -44,9 +43,9 @@ public class LoginTestNG extends TestSuiteBase {
     @Test(groups = "test_003", dataProvider = "dataProviderUser",
             dataProviderClass = DataProviderTest.class)
     private void testLoginError(String name, String password){
-        // call static test case from commonTest.java
+        // call static test case from CommonTest.java
        // System.out.println(new LoginPage(driver).getPageTitle());
-        Assert.assertEquals(commonTest.login(name, password).getPageTitle(),
+        Assert.assertEquals(CommonTest.login(name, password).getPageTitle(),
                 "Login | SSC Campus", "Login Page Not Found");
     }
 

@@ -5,7 +5,7 @@ import org.testng.annotations.DataProvider;
 import java.lang.reflect.Method;
 
 /**
- * Created by auto on 29/05/17.
+ * Created by manuel on 29/05/17.
  */
 public class DataProviderTest {
 

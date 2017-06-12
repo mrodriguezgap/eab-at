@@ -9,7 +9,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
- * Created by auto on 06/04/17.
+ * Created by manuel on 06/04/17.
  * <p>
  * Used to manage Selenium's Drivers
  */

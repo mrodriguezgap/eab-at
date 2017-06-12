@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 
 /**
- * Created by auto on 25/05/17.
+ * Created by manuel on 25/05/17.
  */
 public class TestSuiteBase extends SeleniumBase {
 

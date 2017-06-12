@@ -6,10 +6,14 @@ import com.gap.atpractice.testSuites.TestSuiteBase;
 import org.testng.Assert;
 
 /**
- * Created by auto on 05/06/17.
+ * Created by manuel on 05/06/17.
  */
-public class commonTest extends TestSuiteBase {
+public class CommonTest extends TestSuiteBase {
 
+    /**
+     * Loads the login page
+     * @return a LoginPage object, representing login web page
+     */
     public static LoginPage loadLoginPage() {
         LoginPage loginPage = (LoginPage) new LoginPage(driver).get();
         System.out.println(loginPage.getPageTitle());
@@ -17,6 +21,12 @@ public class commonTest extends TestSuiteBase {
         return loginPage;
     }
 
+    /**
+     * Perform a login, and returns a home page
+     * @param userName Unique user identification
+     * @param password Unique user password
+     * @return a HomePage object, representing home web page
+     */
     public static HomePage login(String userName, String password){
         return loadLoginPage().login(userName, password);
     }

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 /**
- * Created by auto on 15/05/17.
+ * Created by manuel on 15/05/17.
  */
 public class HomePage extends PageBase {
 

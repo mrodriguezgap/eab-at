@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Created by auto on 18/05/17.
+ * Created by manuel on 18/05/17.
  */
 public class BotStyle {
 
@@ -33,10 +33,15 @@ public class BotStyle {
         waitByLocator(locator).sendKeys(txt);
     }
 
+    /**
+     * Perfrom a click on any Web element
+     * @param locator By locator for the element
+     * @throws Exception If the element is not found or displayed
+     */
     public void click(By locator) throws Exception {
-        WebElement button = waitByLocator(locator);
-        if (button.isDisplayed()) {
-            button.click();
+        WebElement element = waitByLocator(locator);
+        if (element.isDisplayed()) {
+            element.click();
         } else {
             throw new Exception();
         }
@@ -60,7 +65,7 @@ public class BotStyle {
     /**
      * Explicit wait, that expects for an element to appear on page body
      * @param locator By locator taken from page
-     * @return A WebElement taken found using By locator
+     * @return A WebElement found using By locator
      */
     private WebElement waitByLocator(By locator) {
         return (new WebDriverWait(this.driver, TIMEOUT))
