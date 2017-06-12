@@ -2,8 +2,9 @@ package com.gap.atpractice.testSuites;
 
 import com.gap.atpractice.selenium.SeleniumBase;
 import org.openqa.selenium.WebDriver;
-
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 
 /**
  * Created by auto on 25/05/17.

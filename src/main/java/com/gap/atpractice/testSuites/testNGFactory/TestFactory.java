@@ -1,4 +1,4 @@
-package com.gap.atpractice.testNGFactory;
+package com.gap.atpractice.testSuites.testNGFactory;
 
 import com.gap.atpractice.testSuites.LoginTestNG;
 import org.testng.annotations.Factory;

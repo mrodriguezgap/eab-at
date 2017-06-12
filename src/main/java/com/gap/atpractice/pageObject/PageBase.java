@@ -1,16 +1,13 @@
 package com.gap.atpractice.pageObject;
 
-import com.gap.atpractice.botStyle.BotStyle;
+import com.gap.atpractice.pageObject.botStyle.BotStyle;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.Objects;
 
 /**
  * Created by auto on 25/05/17.

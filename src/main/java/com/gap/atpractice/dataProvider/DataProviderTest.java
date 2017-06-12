@@ -1,7 +1,8 @@
-package com.gap.atpractice.dataProviders;
+package com.gap.atpractice.dataProvider;
+
+import org.testng.annotations.DataProvider;
 
 import java.lang.reflect.Method;
-import org.testng.annotations.DataProvider;
 
 /**
  * Created by auto on 29/05/17.
