@@ -15,5 +15,8 @@
 # screenshots folder
 **/screenshots
 
+# Java documentation
+**/javaDoc
+
 # inteliJ files
 *.iml

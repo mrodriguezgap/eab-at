@@ -24,12 +24,13 @@ public abstract class PageBase extends LoadableComponent {
         this.botDriver = new BotStyle(driver);
     }
 
+    /**
+     * Page factory method to initialize all page fields
+     * @param driver WebDriver instance
+     * @param page The object of the page to be initialized
+     */
     protected void initElements(WebDriver driver, Object page){
         PageFactory.initElements(driver, this);
-    }
-
-    public String createURL(String url) {
-        return String.format("%s%s", URL, url);
     }
 
     public WebElement wait(By locator) {
@@ -42,25 +43,23 @@ public abstract class PageBase extends LoadableComponent {
                 .until(ExpectedConditions.visibilityOf(element));
     }
 
+    public String createURL(String url) {
+        return String.format("%s%s", URL, url);
+    }
+
     public void goToPage(String url) {
         this.driver.get(url);
     }
 
-    public String getPageTitle() {
-        return this.driver.getTitle();
-    }
+    public abstract String getPageTitle();
+
+    // Loadable Component ****************
 
     @Override
     protected void load() {
-        //this.driver.get(URL);
     }
 
     @Override
     protected void isLoaded() throws Error {
-//        this.driver.get(URL);
-//        JavascriptExecutor js = (JavascriptExecutor) this.driver;
-//        if (js.executeScript("return document.readyState").toString().equals("complete")) {
-//            System.out.println("Overview page is loaded");
-//        }
     }
 }

@@ -38,7 +38,7 @@
         </groups>
 
         <classes>
-            <class name="com.gap.atpractice.testNGFactory.TestFactory">
+            <class name="com.gap.atpractice.testSuites.testNGFactory.TestFactory">
             </class>
 
         </classes>
