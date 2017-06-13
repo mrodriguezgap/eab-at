@@ -46,6 +46,7 @@ public class HomePage extends PageBase {
     }
 
     @Override
+    // TODO implement assert for page load
     protected void isLoaded() throws Error {
         super.driver.get(super.createURL(PATH));
         JavascriptExecutor js = (JavascriptExecutor) super.driver;

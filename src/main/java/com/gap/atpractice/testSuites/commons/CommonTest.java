@@ -10,7 +10,7 @@ import org.testng.Assert;
  */
 public class CommonTest extends TestSuiteBase {
 
-    /**
+    /** TODO redundant method, not necessary. Better use a login method with parameters for credentialsm Or use a login valid and invalid
      * Loads the login page
      * @return a LoginPage object, representing login web page
      */

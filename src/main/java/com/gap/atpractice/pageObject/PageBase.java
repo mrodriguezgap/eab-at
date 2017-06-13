@@ -1,6 +1,6 @@
 package com.gap.atpractice.pageObject;
 
-import com.gap.atpractice.pageObject.botStyle.BotStyle;
+import com.gap.atpractice.botStyle.BotStyle;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,12 +27,12 @@ public abstract class PageBase extends LoadableComponent {
     /**
      * Page factory method to initialize all page fields
      * @param driver WebDriver instance
-     * @param page The object of the page to be initialized
      */
-    protected void initElements(WebDriver driver, Object page){
+    protected void initElements(WebDriver driver){
         PageFactory.initElements(driver, this);
     }
 
+    // TODO Wait should go on Bot
     public WebElement wait(By locator) {
         return (new WebDriverWait(this.driver, TIMEOUT))
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
@@ -55,11 +55,7 @@ public abstract class PageBase extends LoadableComponent {
 
     // Loadable Component ****************
 
-    @Override
-    protected void load() {
-    }
+    protected abstract void load();
 
-    @Override
-    protected void isLoaded() throws Error {
-    }
+    protected abstract void isLoaded() throws Error;
 }

@@ -30,7 +30,7 @@ public class LoginPage extends PageBase {
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        super.initElements(driver, this);
+        super.initElements(driver);
     }
 
     // Page Factory methods *************
@@ -94,31 +94,5 @@ public class LoginPage extends PageBase {
             System.out.println("Login page is loaded");
         }
     }
-
-
-    // OLD PAGE OBJECT METHODS ***********
-
-    /*
-
-    private void sendUserName(String username) {
-        super.wait(USERNAMEPATH).click();
-        super.wait(USERNAMEPATH).sendKeys(username);
-    }
-
-    private void sendUserPassword(String password) {
-        super.wait(PASSWORDPATH).click();
-        super.wait(PASSWORDPATH).sendKeys(password);
-    }
-
-    private void clickLogin() {
-        WebElement buttonLogin = super.wait(BUTTONLOGINPATH);
-        if (buttonLogin.isDisplayed()) {
-            buttonLogin.click();
-        } else {
-            System.out.println("Could not find button login");
-        }
-    }
-
-     */
 
 }

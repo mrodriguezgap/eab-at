@@ -1,4 +1,4 @@
-package com.gap.atpractice.pageObject.botStyle;
+package com.gap.atpractice.botStyle;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

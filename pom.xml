@@ -56,7 +56,7 @@
                 <version>2.19.1</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/main/java/com/gap/atpractice/resources/TestNG.xml</suiteXmlFile>
+                        <suiteXmlFile>src/main/resources/testNG/TestNG.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <systemPropertyVariables>
                         <application.properties>/application.properties</application.properties>
