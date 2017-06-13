@@ -1,6 +1,6 @@
 package com.gap.atpractice.pageObject;
 
-import com.gap.atpractice.pageObject.botStyle.BotStyle;
+import com.gap.atpractice.botStyle.BotStyle;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Created by auto on 25/05/17.
+ * Created by manuel on 25/05/17.
  */
 public abstract class PageBase extends LoadableComponent {
 
@@ -24,14 +24,15 @@ public abstract class PageBase extends LoadableComponent {
         this.botDriver = new BotStyle(driver);
     }
 
-    protected void initElements(WebDriver driver, Object page){
+    /**
+     * Page factory method to initialize all page fields
+     * @param driver WebDriver instance
+     */
+    protected void initElements(WebDriver driver){
         PageFactory.initElements(driver, this);
     }
 
-    public String createURL(String url) {
-        return String.format("%s%s", URL, url);
-    }
-
+    // TODO Wait should go on Bot
     public WebElement wait(By locator) {
         return (new WebDriverWait(this.driver, TIMEOUT))
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
@@ -42,25 +43,19 @@ public abstract class PageBase extends LoadableComponent {
                 .until(ExpectedConditions.visibilityOf(element));
     }
 
+    public String createURL(String url) {
+        return String.format("%s%s", URL, url);
+    }
+
     public void goToPage(String url) {
         this.driver.get(url);
     }
 
-    public String getPageTitle() {
-        return this.driver.getTitle();
-    }
+    public abstract String getPageTitle();
 
-    @Override
-    protected void load() {
-        //this.driver.get(URL);
-    }
+    // Loadable Component ****************
 
-    @Override
-    protected void isLoaded() throws Error {
-//        this.driver.get(URL);
-//        JavascriptExecutor js = (JavascriptExecutor) this.driver;
-//        if (js.executeScript("return document.readyState").toString().equals("complete")) {
-//            System.out.println("Overview page is loaded");
-//        }
-    }
+    protected abstract void load();
+
+    protected abstract void isLoaded() throws Error;
 }

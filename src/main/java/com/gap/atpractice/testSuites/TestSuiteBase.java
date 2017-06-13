@@ -7,12 +7,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 
 /**
- * Created by auto on 25/05/17.
+ * Created by manuel on 25/05/17.
  */
 public class TestSuiteBase extends SeleniumBase {
 
     //protected WebDriver driver;
 
+    //TODO parameter for capabilities
     @BeforeMethod(alwaysRun = true)
     @Parameters({"browserName"})
     public void setup(String browser) {
@@ -27,22 +28,25 @@ public class TestSuiteBase extends SeleniumBase {
             e.printStackTrace();
         }
 
-        super.closeDriver();
+        super.quitDriver();
     }
 
-    private WebDriver initWithCapabilities(String browser) throws Exception {
-        try {
-            return super.setup(browser, true);
-        } catch (Exception e) {
-            throw e;
-        }
-    }
+    // Old init methods used for testing pageObjects *****
 
-    private WebDriver initWithoutCapabilities(String browser) throws Exception {
-        try {
-            return super.setup(browser, false);
-        } catch (Exception e) {
-            throw e;
-        }
-    }
+//    private WebDriver initWithCapabilities(String browser) throws Exception {
+//        try {
+//            return super.setup(browser, true);
+//        } catch (Exception e) {
+//            throw e;
+//        }
+//    }
+//
+//    private WebDriver initWithoutCapabilities(String browser) throws Exception {
+//        try {
+//            return super.setup(browser, false);
+//        } catch (Exception e) {
+//            throw e;
+//        }
+//    }
+
 }

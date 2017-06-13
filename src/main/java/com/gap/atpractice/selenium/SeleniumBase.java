@@ -9,16 +9,13 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
- * Created by auto on 06/04/17.
+ * Created by manuel on 06/04/17.
  * <p>
  * Used to manage Selenium's Drivers
  */
 public class SeleniumBase {
 
     protected static WebDriver driver;
-
-    private static final ChromeOptions options = new ChromeOptions();
-    private static final DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 
     public WebDriver setup(String browserName, boolean useCapabilities) {
         switch (browserName) {
@@ -50,30 +47,7 @@ public class SeleniumBase {
         return driver;
     }
 
-    public WebDriver setupWithCapabilities(DesiredCapabilities capabilities) {
-        switch (capabilities.getBrowserName()) {
-            case "FireFox":
-                initFirefoxCapabilities();
-                break;
-
-            case "Chrome":
-                initChromeCapabilities();
-                break;
-
-            case "IntenetExplorer":
-                initInternetExplorerCapabilities();
-                break;
-
-            default:
-                System.out.println("Please define a browser Name");
-        }
-
-        return driver;
-    }
-
-    public void closeDriver() {
-        //
-        // this.driver.close();
+    public void quitDriver() {
         this.driver.quit();
     }
 
@@ -90,6 +64,8 @@ public class SeleniumBase {
     }
 
     private void initChromeCapabilities() {
+        ChromeOptions options = new ChromeOptions();
+        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         capabilities.setBrowserName("Chrome");
         capabilities.setCapability("applicationCacheEnabled", false);
         options.addArguments("start-maximized");
@@ -108,6 +84,7 @@ public class SeleniumBase {
     }
 
     private void initInternetExplorerCapabilities() {
+        DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
         capabilities.setBrowserName("InternetExplorer");
 
         driver = new InternetExplorerDriver(capabilities);

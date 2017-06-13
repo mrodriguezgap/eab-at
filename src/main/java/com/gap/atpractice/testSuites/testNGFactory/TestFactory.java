@@ -5,7 +5,7 @@ import org.testng.annotations.Factory;
 import org.testng.annotations.Parameters;
 
 /**
- * Created by auto on 01/06/17.
+ * Created by manuel on 01/06/17.
  */
 
 public class TestFactory {

@@ -2,6 +2,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="login-suite-1">
+
+    <listeners>
+        <listener class-name="com.gap.atpractice.listener.TestListener"/>
+    </listeners>
+
     <test name="smoke">
 
         <parameter name="browserName" value="Chrome"/>
@@ -28,7 +33,7 @@
 
         <parameter name="browserName" value="Chrome"/>
         <parameter name="urlLogin" value="https://auto3ss-staging7.gradesfirst.com/"/>
-        <parameter name="executions" value= "10" />
+        <parameter name="executions" value="10"/>
 
         <groups>
             <run>
@@ -38,7 +43,7 @@
         </groups>
 
         <classes>
-            <class name="com.gap.atpractice.testNGFactory.TestFactory">
+            <class name="com.gap.atpractice.testSuites.testNGFactory.TestFactory">
             </class>
 
         </classes>

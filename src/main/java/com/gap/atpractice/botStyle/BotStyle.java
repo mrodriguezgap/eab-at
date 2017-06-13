@@ -1,4 +1,4 @@
-package com.gap.atpractice.pageObject.botStyle;
+package com.gap.atpractice.botStyle;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Created by auto on 18/05/17.
+ * Created by manuel on 18/05/17.
  */
 public class BotStyle {
 
@@ -29,31 +29,45 @@ public class BotStyle {
     }
 
     public void type(By locator, String txt){
-        wait(locator).clear();
-        wait(locator).sendKeys(txt);
+        waitByLocator(locator).clear();
+        waitByLocator(locator).sendKeys(txt);
     }
 
+    /**
+     * Perfrom a click on any Web element
+     * @param locator By locator for the element
+     * @throws Exception If the element is not found or displayed
+     */
     public void click(By locator) throws Exception {
-        WebElement button = wait(locator);
-        if (button.isDisplayed()) {
-            button.click();
+        WebElement element = waitByLocator(locator);
+        if (element.isDisplayed()) {
+            element.click();
         } else {
             throw new Exception();
         }
     }
 
-    // implicit wait
-    public void waitForPageTitle(int timeToWaitSecs, final String title){
+    /**
+     * Implicit wait, that expects for a String to appear on page body
+     * @param timeToWaitSecs Wait timeout in seconds
+     * @param textToCompare Text string taken from page element
+     * @param criteria Text string to compare to
+     */
+    public void waitByTextString(int timeToWaitSecs, final String textToCompare ,final String criteria){
 
         (new WebDriverWait(this.driver, timeToWaitSecs)).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver d) {
-                return d.getTitle().toLowerCase().startsWith(title.toLowerCase());
+                return textToCompare.toLowerCase().startsWith(criteria.toLowerCase());
             }
         });
     }
 
-    // explicit wait
-    private WebElement wait(By locator) {
+    /**
+     * Explicit wait, that expects for an element to appear on page body
+     * @param locator By locator taken from page
+     * @return A WebElement found using By locator
+     */
+    private WebElement waitByLocator(By locator) {
         return (new WebDriverWait(this.driver, TIMEOUT))
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
     }
