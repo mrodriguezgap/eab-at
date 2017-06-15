@@ -27,6 +27,11 @@
             <artifactId>selenium-java</artifactId>
             <version>2.53.1</version>
         </dependency>
+        <dependency>
+            <groupId>br.eti.kinoshita</groupId>
+            <artifactId>testlink-java-api</artifactId>
+            <version>1.9.14-0</version>
+        </dependency>
     </dependencies>
 
     <build>

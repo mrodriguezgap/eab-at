@@ -21,6 +21,6 @@ public class toDo {
     TODO Implicit wait always waits only for a determined time
     TODO parameter for capabilities inside TestSuiteBase
     TODO Define how to manage page objects. Could use WebElement declaration like pageFactory, and method implementation like bot
-    TODO implement assert for page load on isloaded
+    TODO implement assert for page load on isloaded for all Page Objects
     * */
 }

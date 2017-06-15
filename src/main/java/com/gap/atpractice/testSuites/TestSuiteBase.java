@@ -13,7 +13,6 @@ public class TestSuiteBase extends SeleniumBase {
 
     //protected WebDriver driver;
 
-    //TODO parameter for capabilities
     @BeforeMethod(alwaysRun = true)
     @Parameters({"browserName"})
     public void setup(String browser) {
