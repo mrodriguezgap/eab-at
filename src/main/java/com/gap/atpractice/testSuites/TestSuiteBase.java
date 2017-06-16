@@ -11,8 +11,6 @@ import org.testng.annotations.Parameters;
  */
 public class TestSuiteBase extends SeleniumBase {
 
-    //protected WebDriver driver;
-
     @BeforeMethod(alwaysRun = true)
     @Parameters({"browserName"})
     public void setup(String browser) {
@@ -28,6 +26,10 @@ public class TestSuiteBase extends SeleniumBase {
         }
 
         super.quitDriver();
+    }
+
+    public WebDriver getDriver(){
+        return driver;
     }
 
     // Old init methods used for testing pageObjects *****

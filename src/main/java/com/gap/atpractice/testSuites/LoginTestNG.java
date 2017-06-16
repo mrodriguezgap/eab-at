@@ -13,6 +13,12 @@ import org.testng.annotations.Test;
  */
 public class LoginTestNG extends TestSuiteBase {
 
+    private CommonTest commonTest;
+
+    public LoginTestNG(){
+        commonTest = new CommonTest();
+    }
+
 //    private static LoginPage loginPage;
 //    private static HomePage homePage;
 
@@ -25,11 +31,14 @@ public class LoginTestNG extends TestSuiteBase {
 //        Assert.assertEquals(loginPage.getPageTitle(), "Login | SSC Campus", "Login Page Not Found");
 //    }
 
+    // TODO Change commons classes from static to non-static
+    // Add a constructor, create an instance of the common
+
     @Test(groups = "test_001")
     @Parameters({"userName", "userPassword"})
     private void testLoginPO(String userName, String password) throws Exception {
         //CommonTest.loadLoginPage();
-        HomePage homePage = CommonTest.login(userName, password);
+        HomePage homePage = commonTest.login(driver, userName, password);
         Assert.assertEquals(homePage.checkHomePage(), true, "Home Page not loaded");
         System.out.println(homePage.getPageTitle());
     }
@@ -45,7 +54,7 @@ public class LoginTestNG extends TestSuiteBase {
     private void testLoginError(String name, String password){
         // call static test case from CommonTest.java
        // System.out.println(new LoginPage(driver).getPageTitle());
-        Assert.assertEquals(CommonTest.login(name, password).getPageTitle(),
+        Assert.assertEquals(commonTest.login(driver, name, password).getPageTitle(),
                 "Login | SSC Campus", "Login Page Not Found");
     }
 
