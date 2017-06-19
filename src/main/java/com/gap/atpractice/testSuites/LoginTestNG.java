@@ -31,16 +31,14 @@ public class LoginTestNG extends TestSuiteBase {
 //        Assert.assertEquals(loginPage.getPageTitle(), "Login | SSC Campus", "Login Page Not Found");
 //    }
 
-    // TODO Change commons classes from static to non-static
-    // Add a constructor, create an instance of the common
-
     @Test(groups = "test_001")
-    @Parameters({"userName", "userPassword"})
-    private void testLoginPO(String userName, String password) throws Exception {
+    @Parameters({"userName", "userPassword", "testCaseID_001"})
+    public void testLoginPO(String userName, String password, String testCaseID_001) throws Exception {
         //CommonTest.loadLoginPage();
         HomePage homePage = commonTest.login(driver, userName, password);
         Assert.assertEquals(homePage.checkHomePage(), true, "Home Page not loaded");
         System.out.println(homePage.getPageTitle());
+        super.setTestCaseID(testCaseID_001);
     }
 
     /**
@@ -49,13 +47,13 @@ public class LoginTestNG extends TestSuiteBase {
      * @param name User login id
      * @param password User login password
      */
-    @Test(groups = "test_003", dataProvider = "dataProviderUser",
-            dataProviderClass = DataProviderTest.class)
-    private void testLoginError(String name, String password){
-        // call static test case from CommonTest.java
-       // System.out.println(new LoginPage(driver).getPageTitle());
-        Assert.assertEquals(commonTest.login(driver, name, password).getPageTitle(),
-                "Login | SSC Campus", "Login Page Not Found");
-    }
+//    @Test(groups = "test_003", dataProvider = "dataProviderUser",
+//            dataProviderClass = DataProviderTest.class)
+//    private void testLoginError(String name, String password){
+//        // call static test case from CommonTest.java
+//       // System.out.println(new LoginPage(driver).getPageTitle());
+//        Assert.assertEquals(commonTest.login(driver, name, password).getPageTitle(),
+//                "Login | SSC Campus", "Login Page Not Found");
+//    }
 
 }

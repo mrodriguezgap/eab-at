@@ -1,5 +1,6 @@
 package com.gap.atpractice.listener;
 
+import br.eti.kinoshita.testlinkjavaapi.model.TestCase;
 import com.gap.atpractice.testSuites.TestSuiteBase;
 import com.gap.atpractice.utils.TakeScreenshots;
 import org.openqa.selenium.WebDriver;
@@ -21,7 +22,8 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-
+        TestCase testCase = ((TestSuiteBase)(iTestResult.getInstance())).getTestCase(
+                ((TestSuiteBase)(iTestResult.getInstance())).getTestCaseID());
     }
 
     @Override
@@ -45,10 +47,11 @@ public class TestListener implements ITestListener {
     @Override
     public void onStart(ITestContext iTestContext) {
 
+        System.out.println("Starting tests...");
     }
 
     @Override
     public void onFinish(ITestContext iTestContext) {
-
+        System.out.println("Finishing tests...");
     }
 }

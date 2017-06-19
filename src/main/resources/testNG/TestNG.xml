@@ -7,12 +7,36 @@
         <listener class-name="com.gap.atpractice.listener.TestListener"/>
     </listeners>
 
+    <!--Test Link Connection Parameters-->
+    <parameter name="tLinkURL" value="https://testlink.wearegap.com/lib/api/xmlrpc/v1/xmlrpc.php"/>
+    <parameter name="tLinkKey" value="2faefb2347f8d9726ff18b9c7c7ddc86"/>
+
     <test name="smoke">
 
+        <!--Test Plan Parameters-->
+        <parameter name="planName" value="Plan Manuel"/>
+        <parameter name="projectName" value="Automation Practice - Training"/>
+        <parameter name="notes" value="Test plan created by Manuel"/>
+        <parameter name="isActive" value="true"/>
+        <parameter name="isPublic" value="true"/>
+        <parameter name="testPlanID" value="22481"/>
+        <!--Test Build Parameters-->
+        <parameter name="testBuildID" value="62"/>
+        <parameter name="buildName" value="Smoke"/>
+        <parameter name="buildNotes" value="Test Build created by Manuel"/>
+        <!--Test Suite Parameters-->
+        <parameter name="testSuiteID" value="22465"/>
+        <!--Test Case Parameters-->
+        <parameter name="testCaseID_001" value="22466"/>
+        <parameter name="testCaseName" value="Login with valid credentials"/>
+
+        <!--Test Execution Parameters-->
         <parameter name="browserName" value="Chrome"/>
+        <parameter name="useCapabilities" value="false"/>
         <parameter name="urlLogin" value="https://auto3ss-staging7.gradesfirst.com/"/>
         <parameter name="userName" value="rhunt"/>
         <parameter name="userPassword" value="pass1234"/>
+
 
         <groups>
             <run>
@@ -29,24 +53,24 @@
 
     </test>
 
-    <test name="factory">
+    <!--<test name="factory">-->
 
-        <parameter name="browserName" value="Chrome"/>
-        <parameter name="urlLogin" value="https://auto3ss-staging7.gradesfirst.com/"/>
-        <parameter name="executions" value="10"/>
+    <!--<parameter name="browserName" value="Chrome"/>-->
+    <!--<parameter name="urlLogin" value="https://auto3ss-staging7.gradesfirst.com/"/>-->
+    <!--<parameter name="executions" value="10"/>-->
 
-        <groups>
-            <run>
-                <include name="test_003"/>
-                <!--<exclude name="test_003" />-->
-            </run>
-        </groups>
+    <!--<groups>-->
+    <!--<run>-->
+    <!--&lt;!&ndash;<include name="test_003"/>&ndash;&gt;-->
+    <!--<exclude name="test_003" />-->
+    <!--</run>-->
+    <!--</groups>-->
 
-        <classes>
-            <class name="com.gap.atpractice.testSuites.testNGFactory.TestFactory">
-            </class>
+    <!--<classes>-->
+    <!--<class name="com.gap.atpractice.testSuites.testNGFactory.TestFactory">-->
+    <!--</class>-->
 
-        </classes>
+    <!--</classes>-->
 
-    </test>
+    <!--</test>-->
 </suite>

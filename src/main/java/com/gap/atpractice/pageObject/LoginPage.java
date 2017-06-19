@@ -5,6 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 /**
  * Created by manuel on 15/05/17.
@@ -12,7 +13,7 @@ import org.openqa.selenium.support.FindBy;
 public class LoginPage extends PageBase {
 
     // Page Factory Paths
-    // paths
+    // WebElements
     @FindBy(xpath = "//*/input[contains(@class,'button')]")
     private WebElement buttonLogin;
 
@@ -22,7 +23,7 @@ public class LoginPage extends PageBase {
     @FindBy(xpath = "//input[@id='password']")
     private WebElement passwordField;
 
-    // paths
+    // BotStyle paths
     private static final By BUTTONLOGINPATH = By.xpath("//*/input[contains(@class,'button')]");
     private static final By USERNAMEPATH = By.xpath("//input[@id='login']");
     private static final By PASSWORDPATH = By.xpath("//input[@id='password']");
@@ -33,27 +34,7 @@ public class LoginPage extends PageBase {
         super.initElements(driver);
     }
 
-    // Page Factory methods *************
-
-    private void sendUserName(String username) {
-        super.wait(userNameField).click();
-        super.wait(userNameField).sendKeys(username);
-    }
-
-    private void sendUserPassword(String password) {
-        super.wait(passwordField).click();
-        super.wait(passwordField).sendKeys(password);
-    }
-
-    private void clickLogin() {
-        if (buttonLogin.isDisplayed()) {
-            buttonLogin.click();
-        } else {
-            System.out.println("Could not find button login");
-        }
-    }
-
-    // Public elements *******************
+    // Public methods *******************
 
     public void goToLoginPage(String url) {
         super.goToPage(url);
@@ -68,6 +49,26 @@ public class LoginPage extends PageBase {
         sendUserPassword(password);
         clickLogin();
         return new HomePage(this.driver);
+    }
+
+    // Page Factory methods *************
+
+    private void sendUserName(String username) {
+        super.botDriver.waitByWebElement(userNameField).click();
+        super.botDriver.waitByWebElement(userNameField).sendKeys(username);
+    }
+
+    private void sendUserPassword(String password) {
+        super.botDriver.waitByWebElement(passwordField).click();
+        super.botDriver.waitByWebElement(passwordField).sendKeys(password);
+    }
+
+    private void clickLogin() {
+        if (buttonLogin.isDisplayed()) {
+            buttonLogin.click();
+        } else {
+            System.out.println("Could not find button login");
+        }
     }
 
     // BotStyle *************************
@@ -90,9 +91,8 @@ public class LoginPage extends PageBase {
     protected void isLoaded() throws Error {
         super.driver.get(super.createURL(PATH));
         JavascriptExecutor js = (JavascriptExecutor) super.driver;
-        if (js.executeScript("return document.readyState").toString().equals("complete")) {
-            System.out.println("Login page is loaded");
-        }
+        Assert.assertEquals(js.executeScript("return document.readyState").toString(), "complete",
+                "Error loading Login page...");
     }
 
 }

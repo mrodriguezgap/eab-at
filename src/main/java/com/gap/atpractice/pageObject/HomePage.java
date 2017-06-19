@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 /**
  * Created by manuel on 15/05/17.
@@ -20,7 +21,7 @@ public class HomePage extends PageBase {
     // Public elements
 
     public boolean checkHomePage() {
-        WebElement header = super.wait(HEADERHOME);
+        WebElement header = super.botDriver.waitByLocator(HEADERHOME);
         if (header.isDisplayed()) {
             return true;
         } else {
@@ -29,7 +30,7 @@ public class HomePage extends PageBase {
     }
 
     public String getPageHeader() {
-        return super.wait(HEADERHOME).getText();
+        return super.botDriver.waitByLocator(HEADERHOME).getText();
     }
 
     public void goToHomePage(String url) {
@@ -50,8 +51,7 @@ public class HomePage extends PageBase {
     protected void isLoaded() throws Error {
         super.driver.get(super.createURL(PATH));
         JavascriptExecutor js = (JavascriptExecutor) super.driver;
-        if (js.executeScript("return document.readyState").toString().equals("complete")) {
-            System.out.println("Home page is loaded");
-        }
+        Assert.assertEquals(js.executeScript("return document.readyState").toString(), "complete",
+                "Error loading Home page...");
     }
 }

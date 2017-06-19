@@ -32,17 +32,6 @@ public abstract class PageBase extends LoadableComponent {
         PageFactory.initElements(driver, this);
     }
 
-
-    public WebElement wait(By locator) {
-        return (new WebDriverWait(this.driver, TIMEOUT))
-                .until(ExpectedConditions.presenceOfElementLocated(locator));
-    }
-
-    public WebElement wait(WebElement element){
-        return (new WebDriverWait(this.driver, TIMEOUT))
-                .until(ExpectedConditions.visibilityOf(element));
-    }
-
     public String createURL(String url) {
         return String.format("%s%s", URL, url);
     }
