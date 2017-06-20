@@ -1,8 +1,6 @@
 package com.gap.atpractice.testSuites;
 
-import br.eti.kinoshita.testlinkjavaapi.constants.TestCaseDetails;
 import br.eti.kinoshita.testlinkjavaapi.model.Build;
-import br.eti.kinoshita.testlinkjavaapi.model.TestCase;
 import br.eti.kinoshita.testlinkjavaapi.model.TestPlan;
 import br.eti.kinoshita.testlinkjavaapi.model.TestSuite;
 import com.gap.atpractice.selenium.SeleniumBase;
@@ -17,49 +15,89 @@ import java.net.URL;
  */
 public class TestSuiteBase extends SeleniumBase {
 
-    protected TestLinkAccess testLinkAccess;
-    protected TestPlan testLinkPlan;
-    protected Build testLinkBuild;
+    private TestLinkAccess testLinkAccess;
+    private TestPlan testLinkPlan;
+    private Build testLinkBuild;
     protected TestSuite testLinkSuite;
-    private String testCaseID;
+
+
+    private String testLinkURL;
+    private String testLinkKey;
+    private int testProjectID;
+    private int testPlanID;
+    private int testCaseID;
+    private int testCaseVersion;
+    private int testBuildID;
+    private String testBuildName;
+    private String testBuildNotes;
+
+    public String getTestLinkURL() {
+        return testLinkURL;
+    }
+
+    public String getTestLinkKey() {
+        return testLinkKey;
+    }
+
+    public int getTestProjectID() {
+        return testProjectID;
+    }
+
+    public int getTestBuildID() {
+        return testBuildID;
+    }
+
+    public String getTestBuildName() {
+        return testBuildName;
+    }
+
+    public String getTestBuildNotes() {
+        return testBuildNotes;
+    }
+
+    public int getTestPlanID() {
+        return testPlanID;
+    }
 
     /**
      * Gets the value of each test case ID
+     *
      * @return String representing the value of a test case ID
      */
-    public String getTestCaseID() {
+    public int getTestCaseID() {
         return testCaseID;
     }
 
     /**
      * Sets the value of a test case ID
+     *
      * @param testCaseID String representing the test case ID
      */
-    public void setTestCaseID(String testCaseID) {
+    public void setTestCaseID(int testCaseID) {
         this.testCaseID = testCaseID;
     }
 
-    // TODO REGEX to validate test case ID format
-    public Boolean validateTestCaseID(String testCaseID) {
-        // Finish method implementation
-        return true;
+    public int getTestCaseVersion() {
+        return testCaseVersion;
     }
 
-    public TestCase getTestCase(String testCaseID)
-    {
-        // TODO
-        /*
-        Get a test case using ID taken from test execution
-        On Test Success on listener, update test case status,
-        calling this class method, and using the test case ID
-         */
-        return null;
+    public void setTestCaseVersion(int testCaseVersion) {
+        this.testCaseVersion = testCaseVersion;
     }
 
     @BeforeSuite(alwaysRun = true)
-    @Parameters({"tLinkURL", "tLinkKey"})
-    public void setupTestLink(String URL, String devKey) {
+    @Parameters({"testLinkURL", "testLinkKey", "testProjectID", "testPlanID","testBuildID", "testBuildName", "testBuildNotes"})
+    public void setupTestLink(String URL, String devKey, int testProjectID, String testPlanID, String testBuildID,
+                              String testBuildName, String testBuildNotes) {
         try {
+            testLinkURL = URL;
+            testLinkKey = devKey;
+            this.testProjectID = testProjectID;
+            this.testBuildID = Integer.valueOf(testBuildID);
+            this.testBuildName = testBuildName;
+            this.testBuildNotes = testBuildNotes;
+            this.testPlanID = Integer.valueOf(testPlanID);
+
             System.out.println("Connecting to TestLink...");
             testLinkAccess = new TestLinkAccess(new URL(URL), devKey);
         } catch (Exception e) {
@@ -83,7 +121,7 @@ public class TestSuiteBase extends SeleniumBase {
     }
 
     @BeforeGroups(groups = "test_001")
-    @Parameters({"testPlanID", "buildName", "buildNotes"})
+    @Parameters({"testPlanID", "testBuildName", "testBuildNotes"})
     public void setupTestBuild(String testPlanID, String buildName, String buildNotes) {
         try {
             System.out.println("Creating test build...");
@@ -94,15 +132,14 @@ public class TestSuiteBase extends SeleniumBase {
         }
     }
 
-    @BeforeGroups(groups = "test_001")
-    @Parameters({"testSuiteID","testCaseID"})
-    public void setupTestSuite(String suiteID, String testCaseID)
-    {
-        testLinkSuite = testLinkAccess.getTestSuiteDetails(Integer.valueOf(suiteID));
-        TestCase[] cases =
-        testLinkAccess.getTestCasesForTestSuite(testLinkSuite.getId(), false,
-                testLinkAccess.getTestCaseDetails());
-    }
+//    @BeforeGroups(groups = "test_001")
+//    @Parameters({"testSuiteID", "testCaseID"})
+//    public void setupTestSuite(String suiteID, String testCaseID) {
+//        testLinkSuite = testLinkAccess.getTestSuiteDetails(Integer.valueOf(suiteID));
+//        TestCase[] cases =
+//                testLinkAccess.getTestCasesForTestSuite(testLinkSuite.getId(), false,
+//                        testLinkAccess.getTestCaseDetails());
+//    }
 
     @BeforeMethod(alwaysRun = true)
     @Parameters({"browserName", "useCapabilities"})
