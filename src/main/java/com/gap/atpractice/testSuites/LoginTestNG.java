@@ -32,14 +32,14 @@ public class LoginTestNG extends TestSuiteBase {
 
     @Test(groups = "test_001")
     @Parameters({"userName", "userPassword", "testCaseID_001", "testCaseVersion"})
-    public void testLoginPO(String userName, String password, String testCaseID_001, String testCaseVersion)
-            throws Exception {
-        //CommonTest.loadLoginPage();
+    public void testLoginPO(String userName, String password, String testCaseID_001, String testCaseVersion) {
+        super.setTestCaseID(Integer.valueOf(testCaseID_001));
+        super.setTestCaseVersion(Integer.valueOf(testCaseVersion));
+
         HomePage homePage = commonTest.login(driver, userName, password);
         Assert.assertEquals(homePage.checkHomePage(), true, "Home Page not loaded");
         System.out.println(homePage.getPageTitle());
-        super.setTestCaseID(Integer.valueOf(testCaseID_001));
-        super.setTestCaseVersion(Integer.valueOf(testCaseVersion));
+
     }
 
     /**

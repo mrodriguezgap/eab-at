@@ -18,5 +18,9 @@ public class toDo {
     TODO Document TestSuiteBase
     ----
     TODO Define how to manage page objects. Could use WebElement declaration like pageFactory, and method implementation like bot
+    TODO find a way to check for test cases already on suite
+    TODO clean up code
+    TODO make a separate class for testlink setup using testNG
+    TODO a better TestNG.xml definition, flexible to enable/disable tests
     * */
 }

@@ -28,7 +28,7 @@ public class TakeScreenshots {
         File source = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
             // Save file
-            FileUtils.copyFile(source, new File(path + " " + timestamp));
+            FileUtils.copyFile(source, new File(path + timestamp + ".png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

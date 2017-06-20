@@ -51,6 +51,11 @@ public class TestListener implements ITestListener {
     public void onTestFailure(ITestResult iTestResult) {
         WebDriver driver = ((TestSuiteBase) (iTestResult.getInstance())).getDriver();
         TakeScreenshots.takescreenshot(driver, FILE_PATH);
+
+        System.out.println(String.format("%s : %s", "Test execution failed", iTestResult.getTestName()));
+        initParameters(iTestResult);
+        addTestCaseToTestPlan();
+        updateTestCaseFailure();
     }
 
     @Override
@@ -79,6 +84,16 @@ public class TestListener implements ITestListener {
         try {
             testLinkAccess.updateTestCaseExecution(testCaseID, null, testPlanID,
                     ExecutionStatus.PASSED, testBuildID, testBuildName, testBuildNotes, false, "",
+                    0, "", null, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateTestCaseFailure() {
+        try {
+            testLinkAccess.updateTestCaseExecution(testCaseID, null, testPlanID,
+                    ExecutionStatus.FAILED, testBuildID, testBuildName, testBuildNotes, false, "",
                     0, "", null, false);
         } catch (Exception e) {
             e.printStackTrace();
