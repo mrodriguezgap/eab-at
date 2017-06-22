@@ -2,11 +2,14 @@ package com.gap.atpractice.testLinkAccess;
 
 import br.eti.kinoshita.testlinkjavaapi.TestLinkAPI;
 import br.eti.kinoshita.testlinkjavaapi.constants.ExecutionStatus;
+import br.eti.kinoshita.testlinkjavaapi.constants.ExecutionType;
 import br.eti.kinoshita.testlinkjavaapi.constants.TestCaseDetails;
 import br.eti.kinoshita.testlinkjavaapi.model.Build;
+import br.eti.kinoshita.testlinkjavaapi.model.TestCase;
 import br.eti.kinoshita.testlinkjavaapi.model.TestPlan;
 import br.eti.kinoshita.testlinkjavaapi.model.TestSuite;
 import br.eti.kinoshita.testlinkjavaapi.util.TestLinkAPIException;
+import org.testng.annotations.Test;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ import java.util.Map;
  * Created by manuel on 6/14/17.
  */
 public class TestLinkAccess extends TestLinkAPI {
+
     public TestLinkAccess(URL url, String devKey) throws TestLinkAPIException {
         super(url, devKey);
     }
@@ -84,6 +88,31 @@ public class TestLinkAccess extends TestLinkAPI {
         return null;
     }
 
+    public TestCase checkExistingTestCase(int testPlanID, int testCaseID, int buildID) {
+        /*
+            getTestCasesForTestPlan(Integer testPlanId, List<Integer> testCasesIds, Integer buildId,
+        	List<Integer> keywordsIds, String keywords, Boolean executed, List<Integer> assignedTo,
+        	String executeStatus, ExecutionType executionType, Boolean getStepInfo)
+         */
+        try {
+            List<Integer> testList = new ArrayList<Integer>();
+            testList.add(testCaseID);
+            TestCase[] testCases = super.getTestCasesForTestPlan(testPlanID, null, buildID, null,
+                    "", true, null, null, ExecutionType.AUTOMATED,
+                    true, TestCaseDetails.FULL);
+            for (TestCase tCase : testCases) {
+                if (tCase.getId() == testCaseID) {
+                    System.out.println("Test case already exists!!!");
+                    return tCase;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public TestSuite getTestSuiteDetails(Integer suiteID) {
         List<Integer> list = new ArrayList<Integer>();
         list.add(suiteID);
@@ -96,7 +125,7 @@ public class TestLinkAccess extends TestLinkAPI {
         return null;
     }
 
-    public TestCaseDetails getTestCaseDetails(){
+    public TestCaseDetails getTestCaseDetails() {
         return TestCaseDetails.FULL;
     }
 

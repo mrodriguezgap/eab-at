@@ -16,10 +16,6 @@ import java.net.URL;
 public class TestSuiteBase extends SeleniumBase {
 
     private TestLinkAccess testLinkAccess;
-    private TestPlan testLinkPlan;
-    private Build testLinkBuild;
-    protected TestSuite testLinkSuite;
-
 
     private String testLinkURL;
     private String testLinkKey;
@@ -111,7 +107,7 @@ public class TestSuiteBase extends SeleniumBase {
     public void setupTestPlan(String planName, String projectName, String notes, String isActive, String isPublic) {
         try {
             System.out.println("Creating test plan...");
-            testLinkPlan = testLinkAccess.createTestPlan(planName, projectName, notes,
+            TestPlan testLinkPlan = testLinkAccess.createTestPlan(planName, projectName, notes,
                     Boolean.valueOf(isActive), Boolean.valueOf(isPublic));
             testLinkPlan.setPublic(true);
         } catch (Exception e) {
@@ -125,7 +121,7 @@ public class TestSuiteBase extends SeleniumBase {
     public void setupTestBuild(String testPlanID, String buildName, String buildNotes) {
         try {
             System.out.println("Creating test build...");
-            testLinkBuild = testLinkAccess.createTestBuild(Integer.valueOf(testPlanID), buildName, buildNotes);
+            Build testLinkBuild = testLinkAccess.createTestBuild(Integer.valueOf(testPlanID), buildName, buildNotes);
         } catch (Exception e) {
             System.out.println("Could not create test build");
             e.printStackTrace();

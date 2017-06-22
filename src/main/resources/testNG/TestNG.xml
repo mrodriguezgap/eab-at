@@ -51,29 +51,31 @@
 
         <classes>
             <class name="com.gap.atpractice.testSuites.LoginTestNG">
+
             </class>
+
         </classes>
 
     </test>
 
     <!--<test name="factory">-->
 
-    <!--<parameter name="browserName" value="Chrome"/>-->
-    <!--<parameter name="urlLogin" value="https://auto3ss-staging7.gradesfirst.com/"/>-->
-    <!--<parameter name="executions" value="10"/>-->
+        <!--<parameter name="browserName" value="Chrome"/>-->
+        <!--<parameter name="urlLogin" value="https://auto3ss-staging7.gradesfirst.com/"/>-->
+        <!--<parameter name="executions" value="10"/>-->
 
-    <!--<groups>-->
-    <!--<run>-->
-    <!--&lt;!&ndash;<include name="test_003"/>&ndash;&gt;-->
-    <!--<exclude name="test_003" />-->
-    <!--</run>-->
-    <!--</groups>-->
+        <!--<groups>-->
+            <!--<run>-->
+                <!--&lt;!&ndash;<include name="test_003"/>&ndash;&gt;-->
+                <!--<exclude name="test_003"/>-->
+            <!--</run>-->
+        <!--</groups>-->
 
-    <!--<classes>-->
-    <!--<class name="com.gap.atpractice.testSuites.testNGFactory.TestFactory">-->
-    <!--</class>-->
+        <!--<classes>-->
+            <!--<class name="com.gap.atpractice.testSuites.testNGFactory.TestFactory">-->
+            <!--</class>-->
 
-    <!--</classes>-->
+        <!--</classes>-->
 
     <!--</test>-->
 </suite>

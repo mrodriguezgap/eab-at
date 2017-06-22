@@ -1,6 +1,7 @@
 package com.gap.atpractice.listener;
 
 import br.eti.kinoshita.testlinkjavaapi.constants.ExecutionStatus;
+import br.eti.kinoshita.testlinkjavaapi.model.TestCase;
 import com.gap.atpractice.testLinkAccess.TestLinkAccess;
 import com.gap.atpractice.testSuites.TestSuiteBase;
 import com.gap.atpractice.utils.TakeScreenshots;
@@ -43,7 +44,9 @@ public class TestListener implements ITestListener {
     public void onTestSuccess(ITestResult iTestResult) {
         System.out.println(String.format("%s : %s", "Successfully executed test", iTestResult.getTestName()));
         initParameters(iTestResult);
-        addTestCaseToTestPlan();
+        if (checkExistingTestCase() == null) {
+            addTestCaseToTestPlan();
+        }
         updateTestCaseSuccess();
     }
 
@@ -54,7 +57,9 @@ public class TestListener implements ITestListener {
 
         System.out.println(String.format("%s : %s", "Test execution failed", iTestResult.getTestName()));
         initParameters(iTestResult);
-        addTestCaseToTestPlan();
+        if (checkExistingTestCase() != null) {
+            addTestCaseToTestPlan();
+        }
         updateTestCaseFailure();
     }
 
@@ -107,6 +112,16 @@ public class TestListener implements ITestListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private TestCase checkExistingTestCase() {
+        TestCase testCase = null;
+        try {
+            testCase = testLinkAccess.checkExistingTestCase(testPlanID, testCaseID, testBuildID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return testCase;
     }
 
     private void initParameters(ITestResult iTestResult) {
