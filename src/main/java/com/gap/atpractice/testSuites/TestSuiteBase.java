@@ -15,7 +15,7 @@ import java.net.URL;
  */
 public class TestSuiteBase extends SeleniumBase {
 
-    private TestLinkAccess testLinkAccess;
+    protected TestLinkAccess testLinkAccess;
 
     private String testLinkURL;
     private String testLinkKey;
@@ -82,17 +82,11 @@ public class TestSuiteBase extends SeleniumBase {
     }
 
     @BeforeSuite(alwaysRun = true)
-    @Parameters({"testLinkURL", "testLinkKey", "testProjectID", "testPlanID","testBuildID", "testBuildName", "testBuildNotes"})
-    public void setupTestLink(String URL, String devKey, int testProjectID, String testPlanID, String testBuildID,
-                              String testBuildName, String testBuildNotes) {
+    @Parameters({"testLinkURL", "testLinkKey"})
+    public void setupTestLink(String URL, String devKey) {
         try {
             testLinkURL = URL;
             testLinkKey = devKey;
-            this.testProjectID = testProjectID;
-            this.testBuildID = Integer.valueOf(testBuildID);
-            this.testBuildName = testBuildName;
-            this.testBuildNotes = testBuildNotes;
-            this.testPlanID = Integer.valueOf(testPlanID);
 
             System.out.println("Connecting to TestLink...");
             testLinkAccess = new TestLinkAccess(new URL(URL), devKey);
@@ -102,40 +96,16 @@ public class TestSuiteBase extends SeleniumBase {
         }
     }
 
-    @BeforeTest(alwaysRun = true)
-    @Parameters({"planName", "projectName", "notes", "isActive", "isPublic"})
-    public void setupTestPlan(String planName, String projectName, String notes, String isActive, String isPublic) {
-        try {
-            System.out.println("Creating test plan...");
-            TestPlan testLinkPlan = testLinkAccess.createTestPlan(planName, projectName, notes,
-                    Boolean.valueOf(isActive), Boolean.valueOf(isPublic));
-            testLinkPlan.setPublic(true);
-        } catch (Exception e) {
-            System.out.println("Could not create test plan");
-            e.printStackTrace();
-        }
+    @BeforeSuite
+    @Parameters({"testProjectID", "testPlanID", "testBuildID", "testBuildName", "testBuildNotes"})
+    public void setupTestLinkParameters(int testProjectID, String testPlanID, String testBuildID,
+                                        String testBuildName, String testBuildNotes) {
+        this.testProjectID = testProjectID;
+        this.testBuildID = Integer.valueOf(testBuildID);
+        this.testBuildName = testBuildName;
+        this.testBuildNotes = testBuildNotes;
+        this.testPlanID = Integer.valueOf(testPlanID);
     }
-
-    @BeforeGroups(groups = "test_001")
-    @Parameters({"testPlanID", "testBuildName", "testBuildNotes"})
-    public void setupTestBuild(String testPlanID, String buildName, String buildNotes) {
-        try {
-            System.out.println("Creating test build...");
-            Build testLinkBuild = testLinkAccess.createTestBuild(Integer.valueOf(testPlanID), buildName, buildNotes);
-        } catch (Exception e) {
-            System.out.println("Could not create test build");
-            e.printStackTrace();
-        }
-    }
-
-//    @BeforeGroups(groups = "test_001")
-//    @Parameters({"testSuiteID", "testCaseID"})
-//    public void setupTestSuite(String suiteID, String testCaseID) {
-//        testLinkSuite = testLinkAccess.getTestSuiteDetails(Integer.valueOf(suiteID));
-//        TestCase[] cases =
-//                testLinkAccess.getTestCasesForTestSuite(testLinkSuite.getId(), false,
-//                        testLinkAccess.getTestCaseDetails());
-//    }
 
     @BeforeMethod(alwaysRun = true)
     @Parameters({"browserName", "useCapabilities"})

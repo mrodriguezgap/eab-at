@@ -1,6 +1,7 @@
 package com.gap.atpractice.testSuites;
 
 
+import com.gap.atpractice.dataProvider.DataProviderTest;
 import com.gap.atpractice.pageObject.HomePage;
 import com.gap.atpractice.testSuites.commons.CommonTest;
 import org.testng.Assert;
@@ -18,21 +19,16 @@ public class LoginTestNG extends TestSuiteBase {
         commonTest = new CommonTest();
     }
 
-//    private static LoginPage loginPage;
-//    private static HomePage homePage;
-
-    /*
+    /**
+     * Test user is sable to log in to application and is taken to Home page
+     * @param userName User name
+     * @param password User password
+     * @param testCaseID_001 Test case ID from TestLink
+     * @param testCaseVersion Test case version from TestLink
      */
-//    @Test(groups = "test_001")
-//    private void testPageObject() {
-//        LoginPage loginPage = (LoginPage) new LoginPage(driver).get();
-//        System.out.println(loginPage.getPageTitle());
-//        Assert.assertEquals(loginPage.getPageTitle(), "Login | SSC Campus", "Login Page Not Found");
-//    }
-
     @Test(groups = "test_001")
     @Parameters({"userName", "userPassword", "testCaseID_001", "testCaseVersion"})
-    public void testLoginPO(String userName, String password, String testCaseID_001, String testCaseVersion) {
+    public void loginSuccessful(String userName, String password, String testCaseID_001, String testCaseVersion) {
         super.setTestCaseID(Integer.valueOf(testCaseID_001));
         super.setTestCaseVersion(Integer.valueOf(testCaseVersion));
 
@@ -48,13 +44,11 @@ public class LoginTestNG extends TestSuiteBase {
      * @param name User login id
      * @param password User login password
      */
-//    @Test(groups = "test_003", dataProvider = "dataProviderUser",
-//            dataProviderClass = DataProviderTest.class)
-//    private void testLoginError(String name, String password){
-//        // call static test case from CommonTest.java
-//       // System.out.println(new LoginPage(driver).getPageTitle());
-//        Assert.assertEquals(commonTest.login(driver, name, password).getPageTitle(),
-//                "Login | SSC Campus", "Login Page Not Found");
-//    }
+    @Test(groups = "test_001", dataProvider = "dataProviderUser",
+            dataProviderClass = DataProviderTest.class)
+    public void testUnsuccessful(String name, String password){
+        Assert.assertEquals(commonTest.login(driver, name, password).getPageTitle(),
+                "Login | SSC Campus", "Login Page Not Found");
+    }
 
 }
