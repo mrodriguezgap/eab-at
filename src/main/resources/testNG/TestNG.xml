@@ -12,9 +12,9 @@
     <parameter name="testLinkKey" value="2faefb2347f8d9726ff18b9c7c7ddc86"/>
     <parameter name="testProjectID" value="17728"/>
     <!--Test Plan Parameters-->
-    <parameter name="testPlanID" value="22481"/>
+    <parameter name="testPlanID" value="22516"/>
     <!--Test Build Parameters-->
-    <parameter name="testBuildID" value="62"/>
+    <parameter name="testBuildID" value="65"/>
     <parameter name="testBuildName" value="Smoke"/>
     <parameter name="testBuildNotes" value="Test Build created by Manuel"/>
 
