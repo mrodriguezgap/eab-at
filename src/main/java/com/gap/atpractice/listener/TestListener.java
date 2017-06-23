@@ -42,7 +42,7 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        System.out.println(String.format("%s : %s", "Successfully executed test", iTestResult.getTestName().toString()));
+        System.out.println(String.format("%s : %s", "Successfully executed test", iTestResult.getTestName()));
         initParameters(iTestResult);
         if (checkExistingTestCase() == null) {
             addTestCaseToTestPlan();

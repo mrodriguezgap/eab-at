@@ -41,37 +41,41 @@
         <parameter name="userName" value="rhunt"/>
         <parameter name="userPassword" value="pass1234"/>
 
+
         <groups>
             <run>
                 <include name="test_001"/>
+                <!--<include name="test_002"/>-->
             </run>
         </groups>
 
         <classes>
-
-            <!--TODO Create a separate test for testNG setup-->
-            <!--Include only on first run!!!-->
-            <class name="com.gap.atpractice.testSuites.TestLinkSetup">
-                <methods>
-                    <!--<include name="setupTestPlan"/>-->
-                    <!--<include name="setupTestBuild"/>-->
-                    <exclude name="setupTestPlan"/>
-                    <exclude name="setupTestBuild"/>
-                </methods>
-            </class>
-
             <class name="com.gap.atpractice.testSuites.LoginTestNG">
-                <methods>
-                    <include name="loginSuccessful"/>
-                    <exclude name="testUnsuccessful"/>
-                </methods>
-            </class>
 
-            <!-- Test Factory -->
-            <!--<class name="com.gap.atpractice.testSuites.testNGFactory.TestFactory">-->
-            <!--</class>-->
+            </class>
 
         </classes>
 
     </test>
+
+    <!--<test name="factory">-->
+
+        <!--<parameter name="browserName" value="Chrome"/>-->
+        <!--<parameter name="urlLogin" value="https://auto3ss-staging7.gradesfirst.com/"/>-->
+        <!--<parameter name="executions" value="10"/>-->
+
+        <!--<groups>-->
+            <!--<run>-->
+                <!--&lt;!&ndash;<include name="test_003"/>&ndash;&gt;-->
+                <!--<exclude name="test_003"/>-->
+            <!--</run>-->
+        <!--</groups>-->
+
+        <!--<classes>-->
+            <!--<class name="com.gap.atpractice.testSuites.testNGFactory.TestFactory">-->
+            <!--</class>-->
+
+        <!--</classes>-->
+
+    <!--</test>-->
 </suite>

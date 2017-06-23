@@ -4,7 +4,6 @@ package com.gap.atpractice.testSuites;
  * Created by manuel on 6/12/17.
  */
 public class toDo {
-
     /*
     TODO Document DataProviderTest
     TODO Document TestListener
