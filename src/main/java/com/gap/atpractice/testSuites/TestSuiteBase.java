@@ -20,39 +20,132 @@ public class TestSuiteBase extends SeleniumBase {
     private String testLinkURL;
     private String testLinkKey;
     private int testProjectID;
-    private int testPlanID;
+    protected int testPlanID;
     private int testCaseID;
     private int testCaseVersion;
     private int testBuildID;
     private String testBuildName;
     private String testBuildNotes;
 
+    @BeforeSuite(alwaysRun = true)
+    @Parameters({"testLinkURL", "testLinkKey", "testProjectID", "testPlanID", "testBuildID", "testBuildName",
+            "testBuildNotes"})
+    public void setupTestParameters(String URL, String devKey, int testProjectID, String testPlanID, String testBuildID,
+                                    String testBuildName, String testBuildNotes) {
+        try {
+            testLinkURL = URL;
+            testLinkKey = devKey;
+            this.testProjectID = testProjectID;
+            this.testBuildID = Integer.valueOf(testBuildID);
+            this.testBuildName = testBuildName;
+            this.testBuildNotes = testBuildNotes;
+           // this.testPlanID = Integer.valueOf(testPlanID);
+
+//            System.out.println("Connecting to TestLink...");
+//            testLinkAccess = new TestLinkAccess(new URL(URL), devKey);
+        } catch (Exception e) {
+            System.out.println("Could not setup TestLink parameters");
+            e.printStackTrace();
+        }
+    }
+
+    @BeforeMethod(alwaysRun = true)
+    @Parameters({"browserName", "useCapabilities"})
+    public void setup(String browser, Boolean useCapabilities) {
+        super.setup(browser, useCapabilities);
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void finish() {
+        // This Thread.sleep should not be used, however I keep it for testing purposes
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        super.quitDriver();
+    }
+
+    /*
+    private TestLinkAccess testLinkAccess;
+    private String testLinkURL;
+    private String testLinkKey;
+    private int testProjectID;
+    private int testPlanID;
+    private int testCaseID;
+    private int testCaseVersion;
+    private int testBuildID;
+    private String testBuildName;
+    private String testBuildNotes;
+     */
+
+    public WebDriver getDriver() {
+        return driver;
+    }
+
     public String getTestLinkURL() {
         return testLinkURL;
+    }
+
+    public void setTestLinkURL(String url) {
+        this.testLinkURL = url;
     }
 
     public String getTestLinkKey() {
         return testLinkKey;
     }
 
+    public void setTestLinkKey(String key) {
+        this.testLinkKey = key;
+    }
+
     public int getTestProjectID() {
         return testProjectID;
+    }
+
+    public void setTestProjectID(int id) {
+        this.testProjectID = id;
     }
 
     public int getTestBuildID() {
         return testBuildID;
     }
 
+    public void setTestBuildID(int id) {
+        this.testBuildID = id;
+    }
+
     public String getTestBuildName() {
         return testBuildName;
+    }
+
+    public void setTestBuildName(String name) {
+        this.testBuildName = name;
     }
 
     public String getTestBuildNotes() {
         return testBuildNotes;
     }
 
+    public void setTestBuildNotes(String notes) {
+        this.testBuildNotes = notes;
+    }
+
     public int getTestPlanID() {
         return testPlanID;
+    }
+
+    public void setTestPlanID(int id) {
+        this.testPlanID = id;
+    }
+
+    public TestLinkAccess getTestLinkAccess() {
+        return this.testLinkAccess;
+    }
+
+    public void setTestLinkAccess(TestLinkAccess access) {
+        this.testLinkAccess = access;
     }
 
     /**
@@ -81,81 +174,5 @@ public class TestSuiteBase extends SeleniumBase {
         this.testCaseVersion = testCaseVersion;
     }
 
-    @BeforeSuite(alwaysRun = true)
-    @Parameters({"testLinkURL", "testLinkKey", "testProjectID", "testPlanID","testBuildID", "testBuildName", "testBuildNotes"})
-    public void setupTestLink(String URL, String devKey, int testProjectID, String testPlanID, String testBuildID,
-                              String testBuildName, String testBuildNotes) {
-        try {
-            testLinkURL = URL;
-            testLinkKey = devKey;
-            this.testProjectID = testProjectID;
-            this.testBuildID = Integer.valueOf(testBuildID);
-            this.testBuildName = testBuildName;
-            this.testBuildNotes = testBuildNotes;
-            this.testPlanID = Integer.valueOf(testPlanID);
 
-            System.out.println("Connecting to TestLink...");
-            testLinkAccess = new TestLinkAccess(new URL(URL), devKey);
-        } catch (Exception e) {
-            System.out.println("Could not connect to TestLink");
-            e.printStackTrace();
-        }
-    }
-
-    @BeforeTest(alwaysRun = true)
-    @Parameters({"planName", "projectName", "notes", "isActive", "isPublic"})
-    public void setupTestPlan(String planName, String projectName, String notes, String isActive, String isPublic) {
-        try {
-            System.out.println("Creating test plan...");
-            TestPlan testLinkPlan = testLinkAccess.createTestPlan(planName, projectName, notes,
-                    Boolean.valueOf(isActive), Boolean.valueOf(isPublic));
-            testLinkPlan.setPublic(true);
-        } catch (Exception e) {
-            System.out.println("Could not create test plan");
-            e.printStackTrace();
-        }
-    }
-
-    @BeforeGroups(groups = "test_001")
-    @Parameters({"testPlanID", "testBuildName", "testBuildNotes"})
-    public void setupTestBuild(String testPlanID, String buildName, String buildNotes) {
-        try {
-            System.out.println("Creating test build...");
-            Build testLinkBuild = testLinkAccess.createTestBuild(Integer.valueOf(testPlanID), buildName, buildNotes);
-        } catch (Exception e) {
-            System.out.println("Could not create test build");
-            e.printStackTrace();
-        }
-    }
-
-//    @BeforeGroups(groups = "test_001")
-//    @Parameters({"testSuiteID", "testCaseID"})
-//    public void setupTestSuite(String suiteID, String testCaseID) {
-//        testLinkSuite = testLinkAccess.getTestSuiteDetails(Integer.valueOf(suiteID));
-//        TestCase[] cases =
-//                testLinkAccess.getTestCasesForTestSuite(testLinkSuite.getId(), false,
-//                        testLinkAccess.getTestCaseDetails());
-//    }
-
-    @BeforeMethod(alwaysRun = true)
-    @Parameters({"browserName", "useCapabilities"})
-    public void setup(String browser, Boolean useCapabilities) {
-        super.setup(browser, useCapabilities);
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void finish() {
-        // This Thread.sleep should not be used, however I keep it for testing purposes
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        super.quitDriver();
-    }
-
-    public WebDriver getDriver() {
-        return driver;
-    }
 }
