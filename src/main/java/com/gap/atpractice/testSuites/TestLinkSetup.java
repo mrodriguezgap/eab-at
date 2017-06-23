@@ -1,9 +1,7 @@
 package com.gap.atpractice.testSuites;
 
-import br.eti.kinoshita.testlinkjavaapi.model.Build;
-import br.eti.kinoshita.testlinkjavaapi.model.TestPlan;
+import com.gap.atpractice.testLinkAccess.TestLinkAccess;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
 import java.net.URL;
@@ -11,37 +9,34 @@ import java.net.URL;
 /**
  * Created by manuel on 6/22/17.
  */
-public class TestLinkSetup extends TestSuiteBase {
+public class TestLinkSetup {
+
+    private TestLinkAccess testLinkAccess;
+    private int testPlanID;
 
     @BeforeSuite(alwaysRun = true)
     @Parameters({"testLinkURL", "testLinkKey", "runSetupFlag"})
     public void setupTestLink(String url, String devKey, String runSetupFlag) {
         try {
             if (Boolean.valueOf(runSetupFlag)) {
-                super.setTestLinkURL(url);
-                super.setTestLinkKey(devKey);
-
                 System.out.println("Connecting to TestLink...");
-                super.setTestLinkAccess(new com.gap.atpractice.testLinkAccess.TestLinkAccess(new URL(url), devKey));
+                testLinkAccess = new TestLinkAccess(new URL(url), devKey);
             }
         } catch (Exception e) {
             System.out.println("Could not connect to TestLink");
             e.printStackTrace();
         }
-
     }
 
-    @BeforeTest(alwaysRun = true)
+    @BeforeSuite(dependsOnMethods = "setupTestLink")
     @Parameters({"planName", "projectName", "notes", "isActive", "isPublic", "runSetupPlanFlag"})
     public void setupTestPlan(String planName, String projectName, String notes, String isActive, String isPublic,
                               String runSetupPlanFlag) {
         try {
             if (Boolean.valueOf(runSetupPlanFlag)) {
                 System.out.println("Creating test plan...");
-                TestPlan testLinkPlan = super.getTestLinkAccess().createTestPlan(planName, projectName, notes,
-                        Boolean.valueOf(isActive), Boolean.valueOf(isPublic));
-                this.setTestPlanID(testLinkPlan.getId());
-                this.testPlanID = testLinkPlan.getId();
+                testPlanID = testLinkAccess.createTestPlan(planName, projectName, notes,
+                        Boolean.valueOf(isActive), Boolean.valueOf(isPublic)).getId();
             }
         } catch (Exception e) {
             System.out.println("Could not create test plan");
@@ -49,16 +44,13 @@ public class TestLinkSetup extends TestSuiteBase {
         }
     }
 
-    @BeforeTest(dependsOnMethods = "setupTestPlan")
+    @BeforeSuite(dependsOnMethods = "setupTestPlan")
     @Parameters({"testBuildName", "testBuildNotes", "runSetupBuildFlag"})
     public void setupTestBuild(String buildName, String buildNotes, String runSetupBuildFlag) {
         try {
             if (Boolean.valueOf(runSetupBuildFlag)) {
                 System.out.println("Creating test build...");
-                Build testLinkBuild = super.getTestLinkAccess().
-                        createTestBuild(super.getTestPlanID(), buildName, buildNotes);
-                super.setTestBuildID(testLinkBuild.getId());
-                //super.setTest
+                testLinkAccess.createTestBuild(this.testPlanID, buildName, buildNotes);
             }
         } catch (Exception e) {
             System.out.println("Could not create test build");

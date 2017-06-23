@@ -9,22 +9,21 @@
 
     <!--*********** TEST LINK ********** -->
     <!-- TestLink Setup Flags-->
-    <parameter name="runSetupFlag" value="true"/>
-    <parameter name="runSetupPlanFlag" value="true"/>
-    <parameter name="runSetupBuildFlag" value="true"/>
+    <parameter name="runSetupFlag" value="false"/>
+    <parameter name="runSetupPlanFlag" value="false"/>
+    <parameter name="runSetupBuildFlag" value="false"/>
     <!--Test Link Connection Parameters-->
     <parameter name="testLinkURL" value="https://testlink.wearegap.com/lib/api/xmlrpc/v1/xmlrpc.php"/>
     <parameter name="testLinkKey" value="2faefb2347f8d9726ff18b9c7c7ddc86"/>
+    <!-- Test Project Parameters-->
+    <parameter name="projectName" value="Automation Practice - Training"/>
     <parameter name="testProjectID" value="17728"/>
     <!--Test Plan Parameters-->
-    <parameter name="testPlanID" value="22516"/>
     <parameter name="planName" value="Plan Manuel"/>
-    <parameter name="projectName" value="Automation Practice - Training"/>
     <parameter name="notes" value="Test plan created by Manuel"/>
     <parameter name="isActive" value="true"/>
     <parameter name="isPublic" value="true"/>
     <!--Test Build Parameters-->
-    <parameter name="testBuildID" value="65"/>
     <parameter name="testBuildName" value="Smoke"/>
     <parameter name="testBuildNotes" value="Build created by Manuel"/>
     <!--Test Suite Parameters-->

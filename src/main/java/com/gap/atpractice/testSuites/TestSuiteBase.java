@@ -17,10 +17,8 @@ public class TestSuiteBase extends SeleniumBase {
 
     private TestLinkAccess testLinkAccess;
 
-    private String testLinkURL;
-    private String testLinkKey;
     private int testProjectID;
-    protected int testPlanID;
+    private int testPlanID;
     private int testCaseID;
     private int testCaseVersion;
     private int testBuildID;
@@ -28,21 +26,20 @@ public class TestSuiteBase extends SeleniumBase {
     private String testBuildNotes;
 
     @BeforeSuite(alwaysRun = true)
-    @Parameters({"testLinkURL", "testLinkKey", "testProjectID", "testPlanID", "testBuildID", "testBuildName",
+    @Parameters({"testLinkURL", "testLinkKey", "projectName", "testProjectID", "planName", "testBuildName",
             "testBuildNotes"})
-    public void setupTestParameters(String URL, String devKey, int testProjectID, String testPlanID, String testBuildID,
-                                    String testBuildName, String testBuildNotes) {
+    public void setupTestParameters(String URL, String devKey, String projectName, String testProjectID,
+                                    String planName, String testBuildName, String testBuildNotes) {
+        System.out.println("Setting up TestLink parameters...");
         try {
-            testLinkURL = URL;
-            testLinkKey = devKey;
-            this.testProjectID = testProjectID;
-            this.testBuildID = Integer.valueOf(testBuildID);
+            this.testLinkAccess = new TestLinkAccess(new URL(URL), devKey);
+
+            this.testProjectID = Integer.valueOf(testProjectID);
+            this.testPlanID = testLinkAccess.checkExistingTestPlan(planName, projectName).getId();
+            this.testBuildID = testLinkAccess.checkExistingTestBuild(testPlanID, testBuildName).getId();
             this.testBuildName = testBuildName;
             this.testBuildNotes = testBuildNotes;
-           // this.testPlanID = Integer.valueOf(testPlanID);
 
-//            System.out.println("Connecting to TestLink...");
-//            testLinkAccess = new TestLinkAccess(new URL(URL), devKey);
         } catch (Exception e) {
             System.out.println("Could not setup TestLink parameters");
             e.printStackTrace();
@@ -67,85 +64,32 @@ public class TestSuiteBase extends SeleniumBase {
         super.quitDriver();
     }
 
-    /*
-    private TestLinkAccess testLinkAccess;
-    private String testLinkURL;
-    private String testLinkKey;
-    private int testProjectID;
-    private int testPlanID;
-    private int testCaseID;
-    private int testCaseVersion;
-    private int testBuildID;
-    private String testBuildName;
-    private String testBuildNotes;
-     */
-
     public WebDriver getDriver() {
         return driver;
-    }
-
-    public String getTestLinkURL() {
-        return testLinkURL;
-    }
-
-    public void setTestLinkURL(String url) {
-        this.testLinkURL = url;
-    }
-
-    public String getTestLinkKey() {
-        return testLinkKey;
-    }
-
-    public void setTestLinkKey(String key) {
-        this.testLinkKey = key;
-    }
-
-    public int getTestProjectID() {
-        return testProjectID;
-    }
-
-    public void setTestProjectID(int id) {
-        this.testProjectID = id;
-    }
-
-    public int getTestBuildID() {
-        return testBuildID;
-    }
-
-    public void setTestBuildID(int id) {
-        this.testBuildID = id;
-    }
-
-    public String getTestBuildName() {
-        return testBuildName;
-    }
-
-    public void setTestBuildName(String name) {
-        this.testBuildName = name;
-    }
-
-    public String getTestBuildNotes() {
-        return testBuildNotes;
-    }
-
-    public void setTestBuildNotes(String notes) {
-        this.testBuildNotes = notes;
-    }
-
-    public int getTestPlanID() {
-        return testPlanID;
-    }
-
-    public void setTestPlanID(int id) {
-        this.testPlanID = id;
     }
 
     public TestLinkAccess getTestLinkAccess() {
         return this.testLinkAccess;
     }
 
-    public void setTestLinkAccess(TestLinkAccess access) {
-        this.testLinkAccess = access;
+    public int getTestProjectID() {
+        return testProjectID;
+    }
+
+    public int getTestPlanID() {
+        return testPlanID;
+    }
+
+    public int getTestBuildID() {
+        return testBuildID;
+    }
+
+    public String getTestBuildName() {
+        return testBuildName;
+    }
+
+    public String getTestBuildNotes() {
+        return testBuildNotes;
     }
 
     /**
@@ -173,6 +117,5 @@ public class TestSuiteBase extends SeleniumBase {
     public void setTestCaseVersion(int testCaseVersion) {
         this.testCaseVersion = testCaseVersion;
     }
-
 
 }

@@ -19,8 +19,9 @@ public class TakeScreenshots {
      *
      * @param driver Selenium Web Driver
      * @param path   Path where the file will be saved
-     */
-    public static void takescreenshot(WebDriver driver, String path) {
+     * @param testID Unique test identifier taken from TestNG
+     * */
+    public static void takescreenshot(WebDriver driver, String path, String testID) {
 
         // Create a timestamp with current date and time
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -28,7 +29,7 @@ public class TakeScreenshots {
         File source = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
             // Save file
-            FileUtils.copyFile(source, new File(path + timestamp + ".png"));
+            FileUtils.copyFile(source, new File(path + testID + timestamp + ".png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

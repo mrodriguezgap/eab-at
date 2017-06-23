@@ -9,7 +9,7 @@ import br.eti.kinoshita.testlinkjavaapi.model.TestCase;
 import br.eti.kinoshita.testlinkjavaapi.model.TestPlan;
 import br.eti.kinoshita.testlinkjavaapi.model.TestSuite;
 import br.eti.kinoshita.testlinkjavaapi.util.TestLinkAPIException;
-import org.testng.annotations.Test;
+import org.apache.commons.lang.ArrayUtils;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,7 +33,6 @@ public class TestLinkAccess extends TestLinkAPI {
         TestPlan plan = checkExistingTestPlan(planName, projectName);
         if (plan == null) {
             plan = super.createTestPlan(planName, projectName, notes, isActive, isPublic);
-            //plan.setPublic(true);
         }
         return plan;
     }
@@ -55,15 +54,17 @@ public class TestLinkAccess extends TestLinkAPI {
     }
 
 
-    private TestPlan checkExistingTestPlan(String planName, String projectName) {
+    public TestPlan checkExistingTestPlan(String planName, String projectName) {
         try {
             System.out.println("Checking if test plan exists...");
             TestPlan[] plans =
                     super.getProjectTestPlans(super.getTestProjectByName(projectName).getId());
-            for (TestPlan plan : plans) {
-                if (plan.getName().equals(planName)) {
-                    System.out.println("Test plan already exists!!!");
-                    return plan;
+            if (!ArrayUtils.isEmpty(plans)) {
+                for (TestPlan plan : plans) {
+                    if (plan.getName().equals(planName)) {
+                        System.out.println("Test plan already exists!!!");
+                        return plan;
+                    }
                 }
             }
         } catch (Exception e) {
@@ -72,14 +73,16 @@ public class TestLinkAccess extends TestLinkAPI {
         return null;
     }
 
-    private Build checkExistingTestBuild(int testPlanID, String buildName) {
+    public Build checkExistingTestBuild(int testPlanID, String buildName) {
         try {
             System.out.println("Checking if build exists...");
             Build[] builds = super.getBuildsForTestPlan(testPlanID);
-            for (Build build : builds) {
-                if (build.getName().equals(buildName)) {
-                    System.out.println("Build already exists!!!");
-                    return build;
+            if (!ArrayUtils.isEmpty(builds)) {
+                for (Build build : builds) {
+                    if (build.getName().equals(buildName)) {
+                        System.out.println("Build already exists!!!");
+                        return build;
+                    }
                 }
             }
         } catch (Exception e) {
@@ -89,21 +92,18 @@ public class TestLinkAccess extends TestLinkAPI {
     }
 
     public TestCase checkExistingTestCase(int testPlanID, int testCaseID, int buildID) {
-        /*
-            getTestCasesForTestPlan(Integer testPlanId, List<Integer> testCasesIds, Integer buildId,
-        	List<Integer> keywordsIds, String keywords, Boolean executed, List<Integer> assignedTo,
-        	String executeStatus, ExecutionType executionType, Boolean getStepInfo)
-         */
         try {
             List<Integer> testList = new ArrayList<Integer>();
             testList.add(testCaseID);
             TestCase[] testCases = super.getTestCasesForTestPlan(testPlanID, null, buildID, null,
                     "", true, null, null, ExecutionType.AUTOMATED,
                     true, TestCaseDetails.FULL);
-            for (TestCase tCase : testCases) {
-                if (tCase.getId() == testCaseID) {
-                    System.out.println("Test case already exists!!!");
-                    return tCase;
+            if (!ArrayUtils.isEmpty(testCases)) {
+                for (TestCase tCase : testCases) {
+                    if (tCase.getId() == testCaseID) {
+                        System.out.println("Test case already exists!!!");
+                        return tCase;
+                    }
                 }
             }
         } catch (Exception e) {
@@ -112,21 +112,4 @@ public class TestLinkAccess extends TestLinkAPI {
 
         return null;
     }
-
-    public TestSuite getTestSuiteDetails(Integer suiteID) {
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(suiteID);
-        TestSuite[] suites = super.getTestSuiteByID(list);
-        for (TestSuite suite : suites) {
-            if (suite.getId().equals(suiteID)) {
-                return suite;
-            }
-        }
-        return null;
-    }
-
-    public TestCaseDetails getTestCaseDetails() {
-        return TestCaseDetails.FULL;
-    }
-
 }
