@@ -7,7 +7,6 @@ import br.eti.kinoshita.testlinkjavaapi.constants.TestCaseDetails;
 import br.eti.kinoshita.testlinkjavaapi.model.Build;
 import br.eti.kinoshita.testlinkjavaapi.model.TestCase;
 import br.eti.kinoshita.testlinkjavaapi.model.TestPlan;
-import br.eti.kinoshita.testlinkjavaapi.model.TestSuite;
 import br.eti.kinoshita.testlinkjavaapi.util.TestLinkAPIException;
 import org.apache.commons.lang.ArrayUtils;
 

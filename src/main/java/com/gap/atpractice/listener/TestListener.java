@@ -36,7 +36,8 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
         try {
-            System.out.println(String.format("%s : %s", "Successfully executed test", iTestResult.getTestName()));
+            System.out.println(String.format("%s : %s", "Successfully executed test",
+                    iTestResult.getMethod().getMethodName()));
             initTestParameters(iTestResult);
             if (checkExistingTestCase() == null) {
                 addTestCaseToTestPlan();
@@ -50,7 +51,8 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         try {
-            System.out.println(String.format("%s : %s", "Test execution failed", iTestResult.getTestName()));
+            System.out.println(String.format("%s : %s", "Test execution failed",
+                    iTestResult.getMethod().getMethodName()));
             initTestParameters(iTestResult);
 
             WebDriver driver = ((TestSuiteBase) (iTestResult.getInstance())).getDriver();
@@ -66,8 +68,20 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
-        // Gets stack trace error
-        iTestResult.getThrowable().getMessage();
+        try {
+            System.out.println(String.format("%s : %s", "Test execution skipped",
+                    iTestResult.getMethod().getMethodName()));
+            initTestParameters(iTestResult);
+
+            WebDriver driver = ((TestSuiteBase) (iTestResult.getInstance())).getDriver();
+            TakeScreenshots.takescreenshot(driver, FILE_PATH, String.valueOf(this.testCaseID));
+            if (checkExistingTestCase() != null) {
+                addTestCaseToTestPlan();
+            }
+            updateTestCaseStatus(ExecutionStatus.NOT_RUN);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -90,7 +104,7 @@ public class TestListener implements ITestListener {
     private void updateTestCaseStatus(ExecutionStatus status) {
         try {
             testLinkAccess.updateTestCaseExecution(testCaseID, null, testPlanID,
-                    ExecutionStatus.PASSED, testBuildID, testBuildName, testBuildNotes, false, "",
+                    status, testBuildID, testBuildName, testBuildNotes, false, "",
                     0, "", null, false);
         } catch (Exception e) {
             e.printStackTrace();
