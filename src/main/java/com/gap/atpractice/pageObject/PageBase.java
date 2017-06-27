@@ -14,8 +14,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public abstract class PageBase extends LoadableComponent {
 
-    protected final String URL = "https://auto3ss-staging7.gradesfirst.com";
-    protected final long TIMEOUT = 30;
+    private final String URL = "https://auto3ss-staging7.gradesfirst.com";
+    private final long TIMEOUT = 30;
     protected WebDriver driver;
     protected BotStyle botDriver;
 
@@ -30,17 +30,6 @@ public abstract class PageBase extends LoadableComponent {
      */
     protected void initElements(WebDriver driver){
         PageFactory.initElements(driver, this);
-    }
-
-    // TODO Wait should go on Bot
-    public WebElement wait(By locator) {
-        return (new WebDriverWait(this.driver, TIMEOUT))
-                .until(ExpectedConditions.presenceOfElementLocated(locator));
-    }
-
-    public WebElement wait(WebElement element){
-        return (new WebDriverWait(this.driver, TIMEOUT))
-                .until(ExpectedConditions.visibilityOf(element));
     }
 
     public String createURL(String url) {

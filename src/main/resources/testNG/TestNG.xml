@@ -3,16 +3,54 @@
 
 <suite name="login-suite-1">
 
+    <!-- WebDriver Parameters -->
+    <parameter name="browserName" value="Chrome"/>
+    <parameter name="useCapabilities" value="false"/>
+
+    <!--*********** TEST LINK ********** -->
+    <!-- TestLink Setup Flags-->
+    <parameter name="runSetupFlag" value="false"/>
+    <parameter name="runSetupPlanFlag" value="false"/>
+    <parameter name="runSetupBuildFlag" value="false"/>
+    <!--Test Link Connection Parameters-->
+    <parameter name="testLinkURL" value="https://testlink.wearegap.com/lib/api/xmlrpc/v1/xmlrpc.php"/>
+    <parameter name="testLinkKey" value="2faefb2347f8d9726ff18b9c7c7ddc86"/>
+    <!-- Test Project Parameters-->
+    <parameter name="projectName" value="Automation Practice - Training"/>
+    <parameter name="testProjectID" value="17728"/>
+    <!--Test Plan Parameters-->
+    <parameter name="planName" value="Plan Manuel"/>
+    <parameter name="notes" value="Test plan created by Manuel"/>
+    <parameter name="isActive" value="true"/>
+    <parameter name="isPublic" value="true"/>
+    <!--Test Build Parameters-->
+    <parameter name="testBuildName" value="Smoke"/>
+    <parameter name="testBuildNotes" value="Build created by Manuel"/>
+    <!--Test Suite Parameters-->
+    <parameter name="testSuiteID" value="22465"/>
+    <!--Test Case Parameters-->
+    <parameter name="testCaseID_001" value="22466"/>
+    <parameter name="testCaseID_002" value="22587"/>
+    <parameter name="testCaseVersion" value="1"/>
+    <!--*********** **** **** ********** -->
+
     <listeners>
         <listener class-name="com.gap.atpractice.listener.TestListener"/>
     </listeners>
 
+    <test name="testLinkSetup">
+        <classes>
+            <class name="com.gap.atpractice.testSuites.TestLinkSetup"/>
+        </classes>
+    </test>
+
     <test name="smoke">
 
-        <parameter name="browserName" value="Chrome"/>
+        <!--Test Execution Parameters-->
         <parameter name="urlLogin" value="https://auto3ss-staging7.gradesfirst.com/"/>
         <parameter name="userName" value="rhunt"/>
         <parameter name="userPassword" value="pass1234"/>
+        <parameter name="badUserPassword" value="pass12345"/>
 
         <groups>
             <run>
@@ -23,30 +61,33 @@
 
         <classes>
             <class name="com.gap.atpractice.testSuites.LoginTestNG">
+                <methods>
+                    <include name="com.gap.atpractice.testSuites.LoginTestNG.testLoginPO"/>
+                </methods>
             </class>
 
         </classes>
 
     </test>
 
-    <test name="factory">
+    <!--<test name="factory">-->
 
-        <parameter name="browserName" value="Chrome"/>
-        <parameter name="urlLogin" value="https://auto3ss-staging7.gradesfirst.com/"/>
-        <parameter name="executions" value="10"/>
+    <!--<parameter name="browserName" value="Chrome"/>-->
+    <!--<parameter name="urlLogin" value="https://auto3ss-staging7.gradesfirst.com/"/>-->
+    <!--<parameter name="executions" value="10"/>-->
 
-        <groups>
-            <run>
-                <include name="test_003"/>
-                <!--<exclude name="test_003" />-->
-            </run>
-        </groups>
+    <!--<groups>-->
+    <!--<run>-->
+    <!--&lt;!&ndash;<include name="test_003"/>&ndash;&gt;-->
+    <!--<exclude name="test_003"/>-->
+    <!--</run>-->
+    <!--</groups>-->
 
-        <classes>
-            <class name="com.gap.atpractice.testSuites.testNGFactory.TestFactory">
-            </class>
+    <!--<classes>-->
+    <!--<class name="com.gap.atpractice.testSuites.testNGFactory.TestFactory">-->
+    <!--</class>-->
 
-        </classes>
+    <!--</classes>-->
 
-    </test>
+    <!--</test>-->
 </suite>
