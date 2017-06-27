@@ -23,4 +23,5 @@ public class CommonTest {
         LoginPage loginPage = (LoginPage) new LoginPage(driver).get();
         return loginPage.login(userName, password);
     }
+
 }

@@ -2,6 +2,7 @@ package com.gap.atpractice.testSuites;
 
 
 import com.gap.atpractice.pageObject.HomePage;
+import com.gap.atpractice.pageObject.LoginPage;
 import com.gap.atpractice.testSuites.commons.CommonTest;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -18,21 +19,9 @@ public class LoginTestNG extends TestSuiteBase {
         commonTest = new CommonTest();
     }
 
-//    private static LoginPage loginPage;
-//    private static HomePage homePage;
-
-    /*
-     */
-//    @Test(groups = "test_001")
-//    private void testPageObject() {
-//        LoginPage loginPage = (LoginPage) new LoginPage(driver).get();
-//        System.out.println(loginPage.getPageTitle());
-//        Assert.assertEquals(loginPage.getPageTitle(), "Login | SSC Campus", "Login Page Not Found");
-//    }
-
     @Test(groups = "test_001")
     @Parameters({"userName", "userPassword", "testCaseID_001", "testCaseVersion"})
-    public void testLoginPO(String userName, String password, String testCaseID_001, String testCaseVersion) {
+    public void testLoginSuccess(String userName, String password, String testCaseID_001, String testCaseVersion) {
         super.setTestCaseID(Integer.valueOf(testCaseID_001));
         super.setTestCaseVersion(Integer.valueOf(testCaseVersion));
 
@@ -41,6 +30,21 @@ public class LoginTestNG extends TestSuiteBase {
         System.out.println(homePage.getPageTitle());
 
     }
+
+    @Test(groups = "test_001")
+    @Parameters({"userName", "badUserPassword", "testCaseID_002", "testCaseVersion"})
+    public void testLoginFailed(String userName, String password, String testCaseID_001, String testCaseVersion) {
+        super.setTestCaseID(Integer.valueOf(testCaseID_001));
+        super.setTestCaseVersion(Integer.valueOf(testCaseVersion));
+
+        LoginPage login = (LoginPage) new LoginPage(driver).get();
+        login.login(userName, password);
+        Assert.assertEquals(login.getPageTitle(), "Login | SSC Campus", "Login Page not loaded");
+        System.out.println(login.getPageTitle());
+
+    }
+
+
 
     /**
      * Test the page displays an error message due to incorrect login credentials

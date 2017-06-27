@@ -6,12 +6,7 @@ import com.gap.atpractice.testLinkAccess.TestLinkAccess;
 import com.gap.atpractice.testSuites.TestSuiteBase;
 import com.gap.atpractice.utils.TakeScreenshots;
 import org.openqa.selenium.WebDriver;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
-
-import java.net.MalformedURLException;
-import java.net.URL;
+import org.testng.*;
 
 /**
  * Created by manuel on 08/06/17.
@@ -22,8 +17,6 @@ public class TestListener implements ITestListener {
 
     private TestLinkAccess testLinkAccess;
 
-    private String url;
-    private String devKey;
     private int testCaseID;
     private int testBuildID;
     private String testBuildName;
@@ -37,36 +30,58 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-
+        initSuiteParameters(iTestResult);
     }
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        System.out.println(String.format("%s : %s", "Successfully executed test", iTestResult.getTestName()));
-        initParameters(iTestResult);
-        if (checkExistingTestCase() == null) {
-            addTestCaseToTestPlan();
+        try {
+            System.out.println(String.format("%s : %s", "Successfully executed test",
+                    iTestResult.getMethod().getMethodName()));
+            initTestParameters(iTestResult);
+            if (checkExistingTestCase() == null) {
+                addTestCaseToTestPlan();
+            }
+            updateTestCaseStatus(ExecutionStatus.PASSED);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        updateTestCaseSuccess();
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-        WebDriver driver = ((TestSuiteBase) (iTestResult.getInstance())).getDriver();
-        TakeScreenshots.takescreenshot(driver, FILE_PATH);
+        try {
+            System.out.println(String.format("%s : %s", "Test execution failed",
+                    iTestResult.getMethod().getMethodName()));
+            initTestParameters(iTestResult);
 
-        System.out.println(String.format("%s : %s", "Test execution failed", iTestResult.getTestName()));
-        initParameters(iTestResult);
-        if (checkExistingTestCase() != null) {
-            addTestCaseToTestPlan();
+            WebDriver driver = ((TestSuiteBase) (iTestResult.getInstance())).getDriver();
+            TakeScreenshots.takescreenshot(driver, FILE_PATH, String.valueOf(this.testCaseID));
+            if (checkExistingTestCase() != null) {
+                addTestCaseToTestPlan();
+            }
+            updateTestCaseStatus(ExecutionStatus.FAILED);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        updateTestCaseFailure();
     }
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
-        // Gets stack trace error
-        iTestResult.getThrowable().getMessage();
+        try {
+            System.out.println(String.format("%s : %s", "Test execution skipped",
+                    iTestResult.getMethod().getMethodName()));
+            initTestParameters(iTestResult);
+
+            WebDriver driver = ((TestSuiteBase) (iTestResult.getInstance())).getDriver();
+            TakeScreenshots.takescreenshot(driver, FILE_PATH, String.valueOf(this.testCaseID));
+            if (checkExistingTestCase() != null) {
+                addTestCaseToTestPlan();
+            }
+            updateTestCaseStatus(ExecutionStatus.NOT_RUN);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -77,6 +92,7 @@ public class TestListener implements ITestListener {
     @Override
     public void onStart(ITestContext iTestContext) {
         System.out.println("Starting tests...");
+        //iTestContext.getAttribute();
     }
 
     @Override
@@ -85,20 +101,10 @@ public class TestListener implements ITestListener {
     }
 
 
-    private void updateTestCaseSuccess() {
+    private void updateTestCaseStatus(ExecutionStatus status) {
         try {
             testLinkAccess.updateTestCaseExecution(testCaseID, null, testPlanID,
-                    ExecutionStatus.PASSED, testBuildID, testBuildName, testBuildNotes, false, "",
-                    0, "", null, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void updateTestCaseFailure() {
-        try {
-            testLinkAccess.updateTestCaseExecution(testCaseID, null, testPlanID,
-                    ExecutionStatus.FAILED, testBuildID, testBuildName, testBuildNotes, false, "",
+                    status, testBuildID, testBuildName, testBuildNotes, false, "",
                     0, "", null, false);
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,28 +130,32 @@ public class TestListener implements ITestListener {
         return testCase;
     }
 
-    private void initParameters(ITestResult iTestResult) {
-        this.url = ((TestSuiteBase) (iTestResult.getInstance())).getTestLinkURL();
-        this.devKey = ((TestSuiteBase) (iTestResult.getInstance())).getTestLinkKey();
-        this.testCaseID = ((TestSuiteBase) (iTestResult.getInstance())).getTestCaseID();
-        this.testBuildID = ((TestSuiteBase) (iTestResult.getInstance())).getTestBuildID();
-        this.testBuildName = ((TestSuiteBase) (iTestResult.getInstance())).getTestBuildName();
-        this.testBuildNotes = ((TestSuiteBase) (iTestResult.getInstance())).getTestBuildNotes();
-        this.testPlanID = ((TestSuiteBase) (iTestResult.getInstance())).getTestPlanID();
-        this.testProjectID = ((TestSuiteBase) (iTestResult.getInstance())).getTestProjectID();
-        this.version = ((TestSuiteBase) (iTestResult.getInstance())).getTestCaseVersion();
-        this.platformID = 0;
-        this.order = 1;
-        this.urgency = 1;
+    private void initSuiteParameters(ITestResult iTestResult) {
 
         try {
-            this.testLinkAccess = setupTestLinkAccess(url, devKey);
-        } catch (MalformedURLException e) {
+            this.testProjectID = ((TestSuiteBase) (iTestResult.getInstance())).getTestProjectID();
+            this.testPlanID = ((TestSuiteBase) (iTestResult.getInstance())).getTestPlanID();
+            this.testBuildID = ((TestSuiteBase) (iTestResult.getInstance())).getTestBuildID();
+            this.testBuildName = ((TestSuiteBase) (iTestResult.getInstance())).getTestBuildName();
+            this.testBuildNotes = ((TestSuiteBase) (iTestResult.getInstance())).getTestBuildNotes();
+            this.testLinkAccess = ((TestSuiteBase) (iTestResult.getInstance())).getTestLinkAccess();
+
+            this.platformID = 0;
+            this.order = 1;
+            this.urgency = 1;
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private TestLinkAccess setupTestLinkAccess(String url, String devKey) throws MalformedURLException {
-        return new TestLinkAccess(new URL(url), devKey);
+    private void initTestParameters(ITestResult iTestResult) {
+        try {
+            this.testCaseID = ((TestSuiteBase) (iTestResult.getInstance())).getTestCaseID();
+            this.version = ((TestSuiteBase) (iTestResult.getInstance())).getTestCaseVersion();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 }
