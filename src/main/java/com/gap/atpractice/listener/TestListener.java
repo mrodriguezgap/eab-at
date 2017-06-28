@@ -28,6 +28,11 @@ public class TestListener implements ITestListener {
     private int order;
     private int urgency;
 
+    /**
+     * Method run on any <Test> tag on TestNG XML
+     * Currently, initiates the parameters for every TestLink configuration
+     * @param iTestResult Test execution results
+     */
     @Override
     public void onTestStart(ITestResult iTestResult) {
         initSuiteParameters(iTestResult);
