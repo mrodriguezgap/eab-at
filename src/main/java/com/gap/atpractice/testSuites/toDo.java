@@ -5,9 +5,7 @@ package com.gap.atpractice.testSuites;
  */
 public class toDo {
     /*
-    TODO Document DataProviderTest
     TODO Document TestListener
-    TODO Docuent BotStyle
     TODO Document HomePage
     TODO Document LoginPage
     TODO Document PageBase
@@ -21,5 +19,6 @@ public class toDo {
     TODO find a way to check for test cases already on suite
     TODO clean up code
     TODO a better TestNG.xml definition, flexible to enable/disable tests
+    TODO what if testbuild does not exists
     * */
 }

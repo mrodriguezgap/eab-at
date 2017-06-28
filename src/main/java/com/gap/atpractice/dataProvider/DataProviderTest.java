@@ -9,6 +9,11 @@ import java.lang.reflect.Method;
  */
 public class DataProviderTest {
 
+    /**
+     * Creates a data provider element used by TestNG
+     * @param m Method that could be used by data provider. Not required
+     * @return An array of generic Java objects
+     */
     @DataProvider(name = "dataProviderUser")
     public static Object[][] dataProviderUser(Method m) {
         System.out.println(String.format("Data Provider name: %s", m.getName()));

@@ -9,9 +9,9 @@
 
     <!--*********** TEST LINK ********** -->
     <!-- TestLink Setup Flags-->
-    <parameter name="runSetupFlag" value="false"/>
-    <parameter name="runSetupPlanFlag" value="false"/>
-    <parameter name="runSetupBuildFlag" value="false"/>
+    <parameter name="runSetupFlag" value="true"/>
+    <parameter name="runSetupPlanFlag" value="true"/>
+    <parameter name="runSetupBuildFlag" value="true"/>
     <!--Test Link Connection Parameters-->
     <parameter name="testLinkURL" value="https://testlink.wearegap.com/lib/api/xmlrpc/v1/xmlrpc.php"/>
     <parameter name="testLinkKey" value="2faefb2347f8d9726ff18b9c7c7ddc86"/>

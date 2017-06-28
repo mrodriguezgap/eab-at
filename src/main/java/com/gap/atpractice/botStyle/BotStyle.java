@@ -54,7 +54,7 @@ public class BotStyle {
     }
 
     /**
-     * Perfrom a click on any Web element
+     * Perform a click on any Web element
      * @param locator By locator for the element
      * @throws Exception If the element is not found or displayed
      */
@@ -69,15 +69,33 @@ public class BotStyle {
 
     // Actions methods *******************
 
+    /**
+     * Perform a double click on any Web Element
+     * It makes use of Selenium's Actions library
+     * @param locator By locator of the web element
+     */
     public void performDoubleclick(By locator){
         this.action.moveToElement(driver.findElement(locator));
         action.doubleClick().perform();
     }
 
+    /**
+     * Perform a hover on a single Web Element
+     * It makes use of Selenium's Actions library
+     * @param locator By locator of the web element
+     */
     public void performHoverElement(By locator){
         this.action.moveToElement(driver.findElement(locator)).perform();
     }
 
+    /**
+     * Perform a hover on various menu sub items
+     * First it finds the menu element, then it loops thru
+     * all of menu items, identified by the container tag inside the menu element
+     * It makes use of Selenium's Actions library
+     * @param menu Parent menu containing all the menu items
+     * @param menuItems All the menu items contained inside the menu item
+     */
     public void performHoverMenuItems(By menu, By menuItems){
         this.action.moveToElement(driver.findElement(menu)).perform();
         List<WebElement> items = driver.findElements(menuItems);
@@ -86,6 +104,12 @@ public class BotStyle {
         }
     }
 
+    /**
+     * Perform a hover on a single element inside a menu
+     * @param menu Parent menu containing all the menu items
+     * @param menuItems All the menu items contained inside the menu item
+     * @param index Position of the menu element
+     */
     public void performHoverOneMenuItem(By menu, By menuItems, int index){
         this.action.moveToElement(driver.findElement(menu)).perform();
         List<WebElement> items = driver.findElements(menuItems);
