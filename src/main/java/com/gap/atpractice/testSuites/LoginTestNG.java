@@ -19,6 +19,13 @@ public class LoginTestNG extends TestSuiteBase {
         commonTest = new CommonTest();
     }
 
+    /**
+     * Test that user can log in successfully
+     * @param userName String representing User login id
+     * @param password String representing User login password
+     * @param testCaseID_001 String representing unique test case ID on TestLink
+     * @param testCaseVersion String representing current test case version on TestLink
+     */
     @Test(groups = "test_001")
     @Parameters({"userName", "userPassword", "testCaseID_001", "testCaseVersion"})
     public void testLoginSuccess(String userName, String password, String testCaseID_001, String testCaseVersion) {
@@ -31,10 +38,18 @@ public class LoginTestNG extends TestSuiteBase {
 
     }
 
+    /**
+     * Test the page displays an error message due to incorrect login credentials
+     * NOTE: Current assertion checks for home page, since no error message is configured
+     * @param userName String representing User login id
+     * @param password String representing User login password
+     * @param testCaseID_002 String representing unique test case ID on TestLink
+     * @param testCaseVersion String representing current test case version on TestLink
+     */
     @Test(groups = "test_001")
     @Parameters({"userName", "badUserPassword", "testCaseID_002", "testCaseVersion"})
-    public void testLoginFailed(String userName, String password, String testCaseID_001, String testCaseVersion) {
-        super.setTestCaseID(Integer.valueOf(testCaseID_001));
+    public void testLoginFailed(String userName, String password, String testCaseID_002, String testCaseVersion) {
+        super.setTestCaseID(Integer.valueOf(testCaseID_002));
         super.setTestCaseVersion(Integer.valueOf(testCaseVersion));
 
         LoginPage login = (LoginPage) new LoginPage(driver).get();
@@ -43,7 +58,6 @@ public class LoginTestNG extends TestSuiteBase {
         System.out.println(login.getPageTitle());
 
     }
-
 
 
     /**

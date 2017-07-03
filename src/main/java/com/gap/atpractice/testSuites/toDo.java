@@ -5,15 +5,7 @@ package com.gap.atpractice.testSuites;
  */
 public class toDo {
     /*
-    TODO Document TestListener
-    TODO Document HomePage
-    TODO Document LoginPage
-    TODO Document PageBase
-    TODO Document SeleniumBase
-    TODO Document CommonTest
-    TODO Document TestFactory
-    TODO Document LoginTestNG
-    TODO Document TestSuiteBase
+    TODO Document TestLinkSetup
     ----
     TODO Define how to manage page objects. Could use WebElement declaration like pageFactory, and method implementation like bot
     TODO find a way to check for test cases already on suite

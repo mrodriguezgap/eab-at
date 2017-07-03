@@ -36,14 +36,28 @@ public class LoginPage extends PageBase {
 
     // Public methods *******************
 
-    public void goToLoginPage(String url) {
+    /**
+     * Page Object method. Moves to desired URL
+     * @param url String representing destination URL
+     */
+    public void moveToAnotherPage(String url) {
         super.goToPage(url);
     }
 
+    /**
+     * Page Object method. Gets the current page title
+     * @return String representing current page title
+     */
     public String getPageTitle() {
         return super.driver.getTitle();
     }
 
+    /**
+     * BotStyle method. Performs a login and moves to Home Page
+     * @param username String representing user name
+     * @param password String representing password
+     * @return HomePage object representing a Home Page
+     */
     public HomePage login(String username, String password) {
         sendUserName(username);
         sendUserPassword(password);
@@ -53,16 +67,27 @@ public class LoginPage extends PageBase {
 
     // Page Factory methods *************
 
+    /**
+     * BotStyle method. Types the user name on corresponding field
+     * @param username String representing the user name
+     */
     private void sendUserName(String username) {
         super.botDriver.waitByWebElement(userNameField).click();
         super.botDriver.waitByWebElement(userNameField).sendKeys(username);
     }
 
+    /**
+     * BotStyle method. Types the password on corresponding field
+     * @param password String representing the password
+     */
     private void sendUserPassword(String password) {
         super.botDriver.waitByWebElement(passwordField).click();
         super.botDriver.waitByWebElement(passwordField).sendKeys(password);
     }
 
+    /**
+     * Page Object method. Performs a click on Login button
+     */
     private void clickLogin() {
         if (buttonLogin.isDisplayed()) {
             buttonLogin.click();
@@ -73,6 +98,13 @@ public class LoginPage extends PageBase {
 
     // BotStyle *************************
 
+    /**
+     * BotStyle method. Performs a login and moves to Home Page
+     * Makes use of Page Factory locators
+     * @param username String representing user name
+     * @param password String representing password
+     * @return HomePage object representing a Home Page
+     */
     public HomePage botLogin(String username, String password) throws Exception {
         super.botDriver.type(USERNAMEPATH, username);
         super.botDriver.type(PASSWORDPATH, password);
@@ -82,11 +114,18 @@ public class LoginPage extends PageBase {
 
     // Loadable Component ****************
 
+    /**
+     * Implementation from Loadable Component. Loads the current page
+     */
     @Override
     protected void load() {
         super.driver.get(super.createURL(PATH));
     }
 
+    /**
+     * Implementation from Loadable Component. Verifies if the current page has been loaded
+     * @throws Error
+     */
     @Override
     protected void isLoaded() throws Error {
         super.driver.get(super.createURL(PATH));

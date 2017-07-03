@@ -10,6 +10,11 @@ import org.testng.annotations.Parameters;
 
 public class TestFactory {
 
+    /**
+     * Factory method, to generate multiple instances of the same page
+     * @param executions Number of executions, or instances of the same page
+     * @return An Object representing the page
+     */
     @Factory
     @Parameters({"executions"})
     public Object[] loginFactory(int executions)

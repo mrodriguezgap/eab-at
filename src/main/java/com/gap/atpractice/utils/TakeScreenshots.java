@@ -16,7 +16,6 @@ public class TakeScreenshots {
 
     /**
      * This method takes a screenshot and stores it in format FILE on the specified path
-     *
      * @param driver Selenium Web Driver
      * @param path   Path where the file will be saved
      * @param testID Unique test identifier taken from TestNG

@@ -32,19 +32,39 @@ public abstract class PageBase extends LoadableComponent {
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Method used on loadable component, to build a URL to all child pages
+     * @param url
+     * @return
+     */
     public String createURL(String url) {
         return String.format("%s%s", URL, url);
     }
 
+    /**
+     * Method used to move to a desired page
+     * @param url String representing URL of the page
+     */
     public void goToPage(String url) {
         this.driver.get(url);
     }
 
+    /**
+     * Abstract method. Gets the current page title
+     * @return A String representing page title
+     */
     public abstract String getPageTitle();
 
     // Loadable Component ****************
 
+    /**
+     * Abstract method from Loadable Component. Loads the current page
+     */
     protected abstract void load();
 
+    /**
+     * Abstract method from Loadable Component. Verifies if the current page has been loaded
+     * @throws Error
+     */
     protected abstract void isLoaded() throws Error;
 }

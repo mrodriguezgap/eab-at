@@ -38,6 +38,10 @@ public class TestListener implements ITestListener {
         initSuiteParameters(iTestResult);
     }
 
+    /**
+     * Method run on any successful test
+     * @param iTestResult Test execution results
+     */
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
         try {
@@ -53,6 +57,10 @@ public class TestListener implements ITestListener {
         }
     }
 
+    /**
+     * Method run on any test execution failure
+     * @param iTestResult Test execution results
+     */
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         try {
@@ -71,6 +79,10 @@ public class TestListener implements ITestListener {
         }
     }
 
+    /**
+     * Method run on any test execution skipped
+     * @param iTestResult Test execution results
+     */
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
         try {
@@ -83,29 +95,44 @@ public class TestListener implements ITestListener {
             if (checkExistingTestCase() != null) {
                 addTestCaseToTestPlan();
             }
-            updateTestCaseStatus(ExecutionStatus.NOT_RUN);
+            updateTestCaseStatus(ExecutionStatus.BLOCKED);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * ???
+     * @param iTestResult
+     */
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
 
     }
 
+    /**
+     * Method run before every test execution starts
+     * @param iTestContext Test context parameters
+     */
     @Override
     public void onStart(ITestContext iTestContext) {
         System.out.println("Starting tests...");
         //iTestContext.getAttribute();
     }
 
+    /**
+     * Method run after every test execution finishes
+     * @param iTestContext Test context parameters
+     */
     @Override
     public void onFinish(ITestContext iTestContext) {
         System.out.println("Finishing tests...");
     }
 
-
+    /**
+     * Updates a test case execution status
+     * @param status ExecutionStatus enumerator value
+     */
     private void updateTestCaseStatus(ExecutionStatus status) {
         try {
             testLinkAccess.updateTestCaseExecution(testCaseID, null, testPlanID,
@@ -116,6 +143,9 @@ public class TestListener implements ITestListener {
         }
     }
 
+    /**
+     * Adds test case to exiting test plan on TestLink
+     */
     private void addTestCaseToTestPlan() {
         try {
             testLinkAccess.addTestCaseToTestPlan(testProjectID, testPlanID, testCaseID, version, platformID,
@@ -125,6 +155,10 @@ public class TestListener implements ITestListener {
         }
     }
 
+    /**
+     * Finds an existing test case on a test plan
+     * @return A TestCase instance representing the test case found
+     */
     private TestCase checkExistingTestCase() {
         TestCase testCase = null;
         try {
@@ -135,6 +169,10 @@ public class TestListener implements ITestListener {
         return testCase;
     }
 
+    /**
+     * Initialization of TestLink Suite connection parameters
+     * @param iTestResult Test execution results
+     */
     private void initSuiteParameters(ITestResult iTestResult) {
 
         try {
@@ -154,6 +192,10 @@ public class TestListener implements ITestListener {
         }
     }
 
+    /**
+     * Initialization of TestLink Test case parameters
+     * @param iTestResult Test execution results
+     */
     private void initTestParameters(ITestResult iTestResult) {
         try {
             this.testCaseID = ((TestSuiteBase) (iTestResult.getInstance())).getTestCaseID();

@@ -20,6 +20,10 @@ public class HomePage extends PageBase {
 
     // Public elements
 
+    /**
+     * Page Object method. Checks if the page has been loaded correctly
+     * @return A boolean stating if the page loaded correctly
+     */
     public boolean checkHomePage() {
         WebElement header = super.botDriver.waitByLocator(HEADERHOME);
         if (header.isDisplayed()) {
@@ -29,25 +33,43 @@ public class HomePage extends PageBase {
         }
     }
 
+    /**
+     * BotStyle method. Gets the text inside Home Page header element
+     * @return A string with text from the header
+     */
     public String getPageHeader() {
         return super.botDriver.waitByLocator(HEADERHOME).getText();
     }
 
-    public void goToHomePage(String url) {
+    /**
+     * Page Object method. Moves to desired URL
+     * @param url String representing destination URL
+     */
+    public void moveToAnotherPage(String url) {
         super.goToPage(url);
     }
 
+    /**
+     * Page Object method. Gets the current page title
+     * @return String representing current page title
+     */
     public String getPageTitle() {
         return super.driver.getTitle();
     }
 
+    /**
+     * Implementation from Loadable Component. Loads the current page
+     */
     @Override
     protected void load() {
         super.driver.get(createURL(PATH));
     }
 
+    /**
+     * Implementation from Loadable Component. Verifies if the current page has been loaded
+     * @throws Error
+     */
     @Override
-
     protected void isLoaded() throws Error {
         super.driver.get(super.createURL(PATH));
         JavascriptExecutor js = (JavascriptExecutor) super.driver;

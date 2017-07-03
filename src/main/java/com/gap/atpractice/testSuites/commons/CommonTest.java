@@ -12,7 +12,7 @@ import org.testng.Assert;
 public class CommonTest {
 
     /**
-     * Perform a login, and returns a home page
+     * Performs a login, and returns a home page
      * @param driver WebDriver instance
      * @param userName Unique user identification
      * @param password Unique user password
