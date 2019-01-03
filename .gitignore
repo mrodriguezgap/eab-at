@@ -13,13 +13,13 @@
 *.rar
 
 # target folder
-**target/
+/target/*
 
 # screenshots folder
-**screenshots/
+/src/resources/screenshots/*
 
-# driver folder
-**drivers/
+# drivers folder
+/src/resources/drivers/*
 
 # Java documentation
 **javaDoc/
@@ -28,4 +28,4 @@
 *.iml
 
 # idea folder
-**/idea/
+/.idea/*
