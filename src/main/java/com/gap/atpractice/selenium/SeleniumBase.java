@@ -52,6 +52,10 @@ public class SeleniumBase {
     }
 
     private void initChrome() {
+        StringBuilder chromeDriverPath = new StringBuilder();
+        chromeDriverPath.append(System.getProperty("user.dir")).append
+                ("/src/main/resources/drivers/chromedriver").toString();
+        System.setProperty("webdriver.chrome.driver", chromeDriverPath.toString());
         driver = new ChromeDriver();
     }
 

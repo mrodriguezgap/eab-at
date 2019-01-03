@@ -12,11 +12,17 @@
 *.tar.gz
 *.rar
 
+# target folder
+**target/
+
 # screenshots folder
-**/screenshots
+**screenshots/
+
+# driver folder
+**drivers/
 
 # Java documentation
-**/javaDoc
+**javaDoc/
 
 # inteliJ files
 *.iml
