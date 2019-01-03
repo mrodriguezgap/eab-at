@@ -27,5 +27,5 @@
 # inteliJ files
 *.iml
 
-#idea folder
-**idea/
+# idea folder
+**/idea/
