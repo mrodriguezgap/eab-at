@@ -20,3 +20,6 @@
 
 # inteliJ files
 *.iml
+
+#idea folder
+**idea/
